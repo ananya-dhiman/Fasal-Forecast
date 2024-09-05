@@ -38,10 +38,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   camera: ^0.11.0+2
   path_provider: ^2.1.4
-  path: ^1.9.0
+  path: ^1.9.0  
   image_picker: ^0.8.7+4  # Add this for picking images
   http: ^1.2.2
   provider: ^6.0.0
+  translator: ^1.0.0
   
   
   
