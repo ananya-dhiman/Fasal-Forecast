@@ -5,6 +5,7 @@ class Page4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
@@ -13,22 +14,13 @@ class Page4 extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
-   
-      
       appBar: AppBar(
-
-        
-        
         backgroundColor: Colors.green[900],
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.all(10.0),
-        
-
           child: Icon(Icons.grass, color: Colors.orangeAccent,),
-           // Example icon for the app's logo
         ),
       ),    
       body: Container(
@@ -59,22 +51,20 @@ class HomePage extends StatelessWidget {
             ),
             const Spacer(),
             Padding(
-              
+
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
               child: Column(
                 children: [
                   ElevatedButton.icon(
-                    
-
                     onPressed: () {
-                      // Add your upload picture function here
+                      // API INTEGRATION HERE
                     },
                     icon: const Icon(Icons.upload,color: Colors.white,),
                     label: const Text('Upload Picture',style: TextStyle( color: Colors.white,)),
                     style: ElevatedButton.styleFrom(
-                      
+
                       backgroundColor:Color(0xFF024206),
-                      minimumSize: Size(double.infinity, 50), 
+                      minimumSize: Size(double.infinity, 50),
                       // Full width button
                     ),
                   ),
@@ -93,7 +83,6 @@ class HomePage extends StatelessWidget {
                     label: const  Text('Take A Picture',style: TextStyle( color: Colors.white,)),
                     style: ElevatedButton.styleFrom(
                       backgroundColor:Color(0xFF024206),
-
                     minimumSize: const Size(double.infinity, 50), // Full width button
                     ),
                   ),

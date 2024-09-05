@@ -7,6 +7,7 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Translate Text',
       home: ChangeNotifierProvider(
         create: (_) => TranslationProvider(),
@@ -122,7 +123,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Page3(),
+                        builder: (context) => Page3(selectedLanguage: _selectedLanguage),
                       ),
                     );
                   },
