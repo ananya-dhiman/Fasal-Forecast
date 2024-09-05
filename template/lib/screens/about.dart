@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:template/screens/preview_and_info.dart';
-
+import 'package:provider/provider.dart';
+import 'translation_provider.dart'; // Import TranslationProvider
 
 class Page3 extends StatelessWidget {
+  final String selectedLanguage;
+
+  Page3({required this.selectedLanguage});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StickyHeaderExample(),
-      debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (_) => TranslationProvider()..changeLanguage(selectedLanguage),
+      child: MaterialApp(
+        home: StickyHeaderExample(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
@@ -15,18 +22,16 @@ class Page3 extends StatelessWidget {
 class StickyHeaderExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   
+    final translationProvider = Provider.of<TranslationProvider>(context);
+
     return Scaffold(
-      
       backgroundColor: const Color(0xFFDFF7CB),
       body: CustomScrollView(
         slivers: [
-          
-          // The sticky green header (SliverAppBar)
           SliverAppBar(
-            pinned: true, // Keeps the header sticky
-            expandedHeight: 150.0, // Height when expanded
-            backgroundColor: const Color(0xFF024206), // Green background
+            pinned: true,
+            expandedHeight: 300.0,
+            backgroundColor: const Color(0xFF024206),
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.all(10),
               centerTitle: true,
@@ -35,11 +40,12 @@ class StickyHeaderExample extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.grass,
-                    size: 50,
+                    size: 90,
                     color: Colors.orange,
                   ),
                   SizedBox(
-                    width: 130,
+                    height: 50,
+                    width: 150,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFFB81C),
@@ -48,16 +54,12 @@ class StickyHeaderExample extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(context,
-                        MaterialPageRoute(
-                          builder:(context) =>Page4()
-                        ),
-                        );
-                        // Button action
+                        // Navigate to another page (you can pass selected language here too if needed)
                       },
-                      child: const Text(
-                        'Start Now',
-                        style: TextStyle(
+                      child: Text(
+                        translationProvider.translations['startButton'] ?? 'Start Now',
+                        style: const TextStyle(
+                          fontSize: 20,
                           color: Color(0xFF024206),
                           fontWeight: FontWeight.bold,
                         ),
@@ -69,13 +71,12 @@ class StickyHeaderExample extends StatelessWidget {
               ),
             ),
           ),
-          // SliverList for the remaining scrollable content
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _buildHowItWorksSection(),
+                _buildHowItWorksSection(context),
                 _buildImageSection(),
-                _buildAboutSection(),
+                _buildAboutSection(context),
               ],
             ),
           ),
@@ -84,103 +85,40 @@ class StickyHeaderExample extends StatelessWidget {
     );
   }
 
-  Widget _buildHowItWorksSection() {
+  Widget _buildHowItWorksSection(BuildContext context) {
+    final translationProvider = Provider.of<TranslationProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFDFF7CB), // Light green background
+          color: const Color(0xFFDFF7CB),
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.all(20),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'HOW IT WORKS',
-              style: TextStyle(
+              translationProvider.translations['howItWorksTitle'] ?? 'HOW IT WORKS',
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF024206),
               ),
               textAlign: TextAlign.center,
             ),
-         SizedBox(height: 20),
-
-                        // Step 1: Snap
-                        Icon(Icons.camera_alt, size: 50, color: Color(0xFF024206)),
-                        SizedBox(height: 10),
-                        Text(
-                          'Snap',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF024206),
-                          ),
-                            textAlign: TextAlign.center,
-                        ),
-                        Text('Take a photo of your crops',
-                        textAlign: TextAlign.center,
-                          ),
-
-                        SizedBox(height: 30),
-
-                        // Step 2: Share
-                        Icon(Icons.location_on, size: 50, color: Color(0xFF024206)),
-                        SizedBox(height: 10),
-                        Text(
-                          'Share',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF024206),
-                          ),
-                            textAlign: TextAlign.center,
-                        ),
-                        Text('Add your location and send the photo',
-                          textAlign: TextAlign.center,
-                          ),
-
-                        SizedBox(height: 30),
-
-                        // Step 3: Check
-                        Icon(Icons.check_box, size: 50, color:Color(0xFF024206)),
-                        SizedBox(height: 10),
-                        Text(
-                          'Check',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF024206),
-                          ),
-                        ),
-                        Text('Get instant results with solutions',
-                        textAlign: TextAlign.center,
-                        ),
-
-                        SizedBox(height: 30),
-
-                        // Step 4: Do
-                        Icon(Icons.eco, size: 50, color: Color(0xFF024206)),
-                        SizedBox(height: 10),
-                        Text(
-                          'Do',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF024206),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text('Follow the steps to treat and protect your farm',
-                        textAlign: TextAlign.center,
-                        ),
-                        
-                      ],
-                    ),
-                  ),
-              
-      
+            const SizedBox(height: 20),
+            buildStep(Icons.camera_alt, translationProvider.translations['snap'] ?? 'Snap', translationProvider.translations['snapDescription'] ?? 'Take a photo of your crops'),
+            const SizedBox(height: 30),
+            buildStep(Icons.location_on, translationProvider.translations['share'] ?? 'Share', translationProvider.translations['shareDescription'] ?? 'Add your location and send the photo'),
+            const SizedBox(height: 30),
+            buildStep(Icons.check_box, translationProvider.translations['check'] ?? 'Check', translationProvider.translations['checkDescription'] ?? 'Get instant results with solutions'),
+            const SizedBox(height: 30),
+            buildStep(Icons.eco, translationProvider.translations['do'] ?? 'Do', translationProvider.translations['doDescription'] ?? 'Follow the steps to treat and protect your farm'),
+          ],
+        ),
+      ),
     );
   }
 
@@ -192,7 +130,7 @@ class StickyHeaderExample extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           title,
-          style:const  TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color(0xFF024206),
@@ -213,7 +151,7 @@ class StickyHeaderExample extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 30.0),
         child: Image.asset(
-          'assets/img2.png', // Replace with the actual image asset or URL
+          'assets/img2.png',
           height: 239,
           width: 239,
         ),
@@ -221,21 +159,23 @@ class StickyHeaderExample extends StatelessWidget {
     );
   }
 
-  Widget _buildAboutSection() {
+  Widget _buildAboutSection(BuildContext context) {
+    final translationProvider = Provider.of<TranslationProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFDFF7CB), // Light green background
+          color: const Color(0xFFDFF7CB),
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.all(20),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'ABOUT',
-              style: TextStyle(
+              translationProvider.translations['aboutTitle'] ?? 'ABOUT',
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF024206),
@@ -244,21 +184,21 @@ class StickyHeaderExample extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
+                'At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
-              'We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-              textAlign: TextAlign.center,
+                'We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
             ),
           ],
         ),

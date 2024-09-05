@@ -122,7 +122,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Page3(),
+                        builder: (context) => Page3(selectedLanguage: _selectedLanguage),
                       ),
                     );
                   },
