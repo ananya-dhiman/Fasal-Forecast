@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/screens/about.dart'; // Make sure this file exists and contains Page3 class.
+import 'translate_language.dart'; // Make sure this file exists and contains Page3 class.
 
 class Page1 extends StatelessWidget {
   @override
@@ -70,7 +70,7 @@ class Page1 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Page3(), // Correctly navigate to Page3
+                          builder: (context) => Page2(), // Correctly navigate to Page3
                         ),
                       );
                     },
