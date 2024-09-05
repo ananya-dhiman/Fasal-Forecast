@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'translation_provider.dart'; // Import TranslationProvider
+import 'preview_and_info.dart';
 
 class Page3 extends StatelessWidget {
   final String selectedLanguage;
-
   Page3({required this.selectedLanguage});
 
   @override
@@ -54,6 +54,11 @@ class StickyHeaderExample extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Page4(),
+                          ),
+                        );
                         // Navigate to another page (you can pass selected language here too if needed)
                       },
                       child: Text(

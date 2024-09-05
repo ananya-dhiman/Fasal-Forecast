@@ -7,6 +7,7 @@ class Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Translate Text',
       home: ChangeNotifierProvider(
         create: (_) => TranslationProvider(),
