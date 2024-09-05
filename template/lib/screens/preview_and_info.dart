@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:template/camera.dart';
 
 class Page4 extends StatelessWidget {
   @override
@@ -81,7 +81,12 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Page5(), // Correctly navigate to Page3
+                        ),
+                      );
                       // Add your take a picture function here
                     },
                     icon: const Icon(Icons.camera_alt, color: Colors.white,),

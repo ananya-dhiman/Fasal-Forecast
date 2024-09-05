@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/front_page.dart';
 import 'screens/about.dart';
 import 'screens/preview_and_info.dart';
+import 'camera.dart';
 
 void main() {
   runApp(MyCropApp());
@@ -18,6 +19,10 @@ class MyCropApp extends StatelessWidget { // Corrected the typo here
         '/front_page': (context) => Page1(), // Removed '/screens/' prefix
         '/about': (context) => Page3(),
         '/preview_and_info': (context) => Page4(),
+        '/camera':(context) => Page5(),
+
+        
+        
       },
     );
   }
