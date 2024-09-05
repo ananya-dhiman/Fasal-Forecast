@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
-
+import 'package:template/translate-ui.dart';
 void main() {
   runApp(Tralang());
 }
@@ -24,8 +24,8 @@ class _TranslationScreenState extends State<TranslationScreen> {
   String translatedText = ""; // Variable to store the translated text
 
   // Function to translate text to a specified language
-  void translateText(String languageCode) {
-    translator.translate("hello", to: languageCode).then((result) {
+  void translateText(String input,String languageCode) {
+    translator.translate(input, to: languageCode).then((result) {
       setState(() {
         translatedText = result.text; // Set the translated text
       });
@@ -37,39 +37,6 @@ class _TranslationScreenState extends State<TranslationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Text Translator"),
-        backgroundColor: Colors.blueAccent,
-      ),
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Original Text: "hello"',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            SizedBox(height: 20), // Adds space between the widgets
-            Text(
-              'Translated Text: $translatedText',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => translateText('hi'), // Translate to Hindi
-                  child: Text('Translate to Hindi'),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () => translateText('kn'), // Translate to Kannada
-                  child: Text('Translate to Kannada'),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -8,21 +8,18 @@ void main() {
   runApp(MyCropApp());
 }
 
-class MyCropApp extends StatelessWidget { // Corrected the typo here
+class MyCropApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fasal Forecast',
       debugShowCheckedModeBanner: false, 
-      initialRoute: '/front_page', // Updated to match one of the route keys
+      initialRoute: '/front_page',
       routes: {
-        '/front_page': (context) => Page1(), // Removed '/screens/' prefix
+        '/front_page': (context) => Page1(),
         '/about': (context) => Page3(),
         '/preview_and_info': (context) => Page4(),
         '/camera':(context) => Page5(),
-
-        
-        
       },
     );
   }

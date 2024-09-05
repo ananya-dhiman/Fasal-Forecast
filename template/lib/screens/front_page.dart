@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'translate_language.dart'; // Make sure this file exists and contains Page3 class.
+import 'package:template/translate-ui.dart';
 
 class Page1 extends StatelessWidget {
   @override
