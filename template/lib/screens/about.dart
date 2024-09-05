@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:template/screens/preview_and_info.dart';
 
 
 class Page3 extends StatelessWidget {
@@ -47,6 +48,11 @@ class StickyHeaderExample extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
+                        Navigator.push(context,
+                        MaterialPageRoute(
+                          builder:(context) =>Page4()
+                        ),
+                        );
                         // Button action
                       },
                       child: const Text(
@@ -178,15 +184,15 @@ class StickyHeaderExample extends StatelessWidget {
     );
   }
 
-  Widget _buildStep(IconData icon, String title, String description) {
+  Widget buildStep(IconData icon, String title, String description) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(icon, size: 50, color: Color(0xFF024206)),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           title,
-          style: TextStyle(
+          style:const  TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Color(0xFF024206),

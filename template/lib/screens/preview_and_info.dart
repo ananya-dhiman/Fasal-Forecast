@@ -81,6 +81,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
+                      
                       // Add your take a picture function here
                     },
                     icon: const Icon(Icons.camera_alt, color: Colors.white,),
