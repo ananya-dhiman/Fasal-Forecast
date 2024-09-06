@@ -39,7 +39,7 @@ class _CameraScreenState extends State<Page5> {
 
   Future<void> _takePicture() async {
     try {
-      await _initializeControllerFuture; // Ensure the camera is initialized
+      await _initializeControllerFuture;
       final image = await _controller!.takePicture();
       //The Image validator should go here
         Navigator.push(
@@ -47,12 +47,7 @@ class _CameraScreenState extends State<Page5> {
           MaterialPageRoute(
             builder: (context) => ImagePreviewScreen(imagePath: image.path, onRetake: _retakePhoto),
           ),
-       
         );
-    
-
-
-
       }
      catch (e) {
       print(e);

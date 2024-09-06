@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _initializeTranslations() async {
     try {
-      // Replace 'your_machine_ip' with your actual local IP address
-      final response = await dio.get('http://127.0.0.1:5000/envdata');
+      // Use '10.0.2.2' to connect to the host machine when using the Android emulator
+      final response = await dio.get('http://10.0.2.2:5000/envdata');
 
       if (response.statusCode == 200) {
         // Decode the response body
