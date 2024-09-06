@@ -100,7 +100,7 @@ class ImagePreviewScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFD9F1C9),
       appBar: AppBar(
         title: const Text(
-          'Preview Picture',
+          'Upload Image To Get Results',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -122,10 +122,11 @@ class ImagePreviewScreen extends StatelessWidget {
               children: [
                 // Retake Photo Button
                 Container(
+                 padding:const EdgeInsets.all(10),
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      padding: const EdgeInsets.all(1.0),
                       backgroundColor: const Color(0xFF024206),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -145,10 +146,11 @@ class ImagePreviewScreen extends StatelessWidget {
 
                 // Submit Photo Button
                 Container(
+
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      padding: const EdgeInsets.all(15.0),
                       backgroundColor: const Color(0xFF024206),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -157,6 +159,7 @@ class ImagePreviewScreen extends StatelessWidget {
                     onPressed: () {
                       // Implement submission logic here
                     },
+                  
                     child: const Text(
                       'Submit Photo',
                       style: TextStyle(

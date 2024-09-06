@@ -1,29 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'translation_provider.dart'; // Import TranslationProvider
-import 'preview_and_info.dart';
+import 'global.dart'; // Import the global language variable
+import 'translate_function.dart';
+import 'preview_and_info.dart'; // Import the translation function
 
 class Page3 extends StatelessWidget {
-  final String selectedLanguage;
-  Page3({required this.selectedLanguage});
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TranslationProvider()..changeLanguage(selectedLanguage),
-      child: MaterialApp(
-        home: StickyHeaderExample(),
-        debugShowCheckedModeBanner: false,
-      ),
+    return MaterialApp(
+      home: StickyHeaderExample(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class StickyHeaderExample extends StatelessWidget {
+class StickyHeaderExample extends StatefulWidget {
+  @override
+  _StickyHeaderExampleState createState() => _StickyHeaderExampleState();
+}
+
+class _StickyHeaderExampleState extends State<StickyHeaderExample> {
+  // Local state variables for translated texts
+  String startNowText = 'Start Now';
+  String howItWorksText = 'HOW IT WORKS';
+  String snapText = 'Snap';
+  String snapDescriptionText = 'Take a photo of your crops';
+  String shareText = 'Share';
+  String shareDescriptionText = 'Add your location and send the photo';
+  String checkText = 'Check';
+  String checkDescriptionText = 'Get instant results with solutions';
+  String doText = 'Do';
+  String doDescriptionText = 'Follow the steps to treat and protect your farm';
+  String aboutText = 'ABOUT';
+  String aboutDescriptionText1 = 'At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.';
+  String aboutDescriptionText2 = 'We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.';
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeTranslations(); // Initialize translations on state creation
+  }
+
+  Future<void> _initializeTranslations() async {
+    // Translate all texts based on the preset language
+    startNowText = await translateText('Start Now');
+    howItWorksText = await translateText('HOW IT WORKS');
+    snapText = await translateText('Snap');
+    snapDescriptionText = await translateText('Take a photo of your crops');
+    shareText = await translateText('Share');
+    shareDescriptionText = await translateText('Add your location and send the photo');
+    checkText = await translateText('Check');
+    checkDescriptionText = await translateText('Get instant results with solutions');
+    doText = await translateText('Do');
+    doDescriptionText = await translateText('Follow the steps to treat and protect your farm');
+    aboutText = await translateText('ABOUT');
+    aboutDescriptionText1 = await translateText('At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.');
+    aboutDescriptionText2 = await translateText('We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.');
+
+    if (mounted) { // Check if the widget is still mounted before calling setState
+      setState(() {}); // Update the state to reflect translations
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up resources or subscriptions if necessary
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final translationProvider = Provider.of<TranslationProvider>(context);
-
     return Scaffold(
       backgroundColor: const Color(0xFFDFF7CB),
       body: CustomScrollView(
@@ -56,13 +101,11 @@ class StickyHeaderExample extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Page4(),
-                          ),
+                          MaterialPageRoute(builder: (context) => Page4()),
                         );
-                        // Navigate to another page (you can pass selected language here too if needed)
                       },
                       child: Text(
-                        translationProvider.translations['startButton'] ?? 'Start Now',
+                        startNowText,
                         style: const TextStyle(
                           fontSize: 20,
                           color: Color(0xFF024206),
@@ -91,8 +134,6 @@ class StickyHeaderExample extends StatelessWidget {
   }
 
   Widget _buildHowItWorksSection(BuildContext context) {
-    final translationProvider = Provider.of<TranslationProvider>(context);
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -105,7 +146,7 @@ class StickyHeaderExample extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              translationProvider.translations['howItWorksTitle'] ?? 'HOW IT WORKS',
+              howItWorksText,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -114,20 +155,20 @@ class StickyHeaderExample extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            buildStep(Icons.camera_alt, translationProvider.translations['snap'] ?? 'Snap', translationProvider.translations['snapDescription'] ?? 'Take a photo of your crops'),
+            _buildStep(Icons.camera_alt, snapText, snapDescriptionText),
             const SizedBox(height: 30),
-            buildStep(Icons.location_on, translationProvider.translations['share'] ?? 'Share', translationProvider.translations['shareDescription'] ?? 'Add your location and send the photo'),
+            _buildStep(Icons.location_on, shareText, shareDescriptionText),
             const SizedBox(height: 30),
-            buildStep(Icons.check_box, translationProvider.translations['check'] ?? 'Check', translationProvider.translations['checkDescription'] ?? 'Get instant results with solutions'),
+            _buildStep(Icons.check_box, checkText, checkDescriptionText),
             const SizedBox(height: 30),
-            buildStep(Icons.eco, translationProvider.translations['do'] ?? 'Do', translationProvider.translations['doDescription'] ?? 'Follow the steps to treat and protect your farm'),
+            _buildStep(Icons.eco, doText, doDescriptionText),
           ],
         ),
       ),
     );
   }
 
-  Widget buildStep(IconData icon, String title, String description) {
+  Widget _buildStep(IconData icon, String title, String description) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -165,8 +206,6 @@ class StickyHeaderExample extends StatelessWidget {
   }
 
   Widget _buildAboutSection(BuildContext context) {
-    final translationProvider = Provider.of<TranslationProvider>(context);
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -179,7 +218,7 @@ class StickyHeaderExample extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              translationProvider.translations['aboutTitle'] ?? 'ABOUT',
+              aboutText,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -187,23 +226,23 @@ class StickyHeaderExample extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
-                'At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
+              aboutDescriptionText1,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),
             Text(
-                'We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
+              aboutDescriptionText2,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

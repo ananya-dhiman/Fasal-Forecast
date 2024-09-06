@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:template/translate-ui.dart';
+import 'translate-ui.dart';
+import 'translate_function.dart';
+import 'global.dart';
 
 class Page1 extends StatelessWidget {
   @override

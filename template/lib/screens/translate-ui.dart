@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:template/screens/about.dart'; // Ensure this is the correct path
+import 'package:template/screens/about.dart'; 
+import 'global.dart';
 
 
-class TranslateScreen extends StatefulWidget {
+
+class Page2 extends StatefulWidget {
   @override
   _TranslateScreenState createState() => _TranslateScreenState();
 }
 
-class _TranslateScreenState extends State<TranslateScreen> {
-  String _selectedLanguage = 'en'; // Default to English
- 
+class _TranslateScreenState extends State<Page2> {
+  // Default to English
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +24,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
+                margin: const EdgeInsets.only(bottom: 40.0),
                 child: Image.asset(
                   'assets/icon.png',
                   height: 150,
@@ -48,7 +50,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                 child: Container(
                   width: 350,
                   height: 65,
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                     color: const Color(0xFFEFEFEF),
                     borderRadius: BorderRadius.circular(30),
@@ -62,15 +64,15 @@ class _TranslateScreenState extends State<TranslateScreen> {
                     ],
                   ),
                   child: DropdownButton<String>(
-                    value: _selectedLanguage,
+                    value: selectedLanguage,
                     items: const [
-                      DropdownMenuItem(value: 'en', child: Text('English')),
-                      DropdownMenuItem(value: 'hi', child: Text('Hindi')),
-                      DropdownMenuItem(value: 'kn', child: Text('Kannada')),
+                      DropdownMenuItem(value: 'en', child: Text('English',textAlign: TextAlign.center,)),
+                      DropdownMenuItem(value: 'hi', child: Text('Hindi',textAlign: TextAlign.center,)),
+                      DropdownMenuItem(value: 'kn', child: Text('Kannada',textAlign: TextAlign.center,)),
                     ],
                     onChanged: (String? newValue) {
                       setState(() {
-                        _selectedLanguage = newValue ?? 'en';
+                        selectedLanguage = newValue ?? 'en';
                       });
                     },
                     isExpanded: true,
@@ -103,8 +105,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Page3(
-                        ),
+                        builder: (context) => Page3(),
                       ),
                     );
                   },
