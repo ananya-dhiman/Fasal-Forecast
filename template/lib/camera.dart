@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:template/screens/result.dart';
 
 class Page5 extends StatefulWidget {
   @override
@@ -172,6 +173,10 @@ class ImagePreviewScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Page7()),
+                        );
                       // Implement submission logic here
                     },
                   

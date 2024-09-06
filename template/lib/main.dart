@@ -4,6 +4,7 @@ import 'screens/about.dart';
 import 'screens/preview_and_info.dart';
 import 'camera.dart';
 import 'screens/translate-ui.dart';
+import 'screens/result.dart';
 
 
 void main() {
@@ -23,6 +24,7 @@ class MyCropApp extends StatelessWidget {
         '/about': (context) => Page3(),
         '/preview_and_info': (context) => Page4(),
         '/camera':(context) => Page5(),
+        '/result':(context)=> Page7(),
       },
     );
   }

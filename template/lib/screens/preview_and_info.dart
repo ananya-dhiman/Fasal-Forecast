@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[900],
+        backgroundColor:Color(0xFF024206),
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.all(10.0),
@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
             Icons.grass,
             color: Colors.orangeAccent,
           ),
+          
         ),
       ),
       body: Container(
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Text(
               bilzenText,
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
+              style: TextStyle(fontSize: 20, color: Color(0xFF024206)),
             ),
             const SizedBox(height: 16),
             Container(
