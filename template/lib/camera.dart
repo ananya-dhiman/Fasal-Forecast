@@ -58,7 +58,7 @@ class _CameraScreenState extends State<Page5> {
       print(e);
     }
       Future<void> _uploadImage(String imagePath) async {
-    final uri = Uri.parse('localhost:5000');
+    final uri = Uri.parse('http://127.0.0.1:5000/predict');
     final request = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('file', imagePath));
 
@@ -137,55 +137,57 @@ class ImagePreviewScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Retake Photo Button
-                Container(
-                 padding:const EdgeInsets.all(10),
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(1.0),
-                      backgroundColor: const Color(0xFF024206),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(15.0),
+                        backgroundColor: const Color(0xFF024206),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                    ),
-                    onPressed: onRetake,
-                    child: const Text(
-                      'Retake Photo',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      onPressed: onRetake,
+                      child: const Text(
+                        'Retake Photo',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                 ),
 
                 // Submit Photo Button
-                Container(
-
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(15.0),
-                      backgroundColor: const Color(0xFF024206),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(15.0),
+                        backgroundColor: const Color(0xFF024206),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Page7()),
                         );
-                      // Implement submission logic here
-                    },
-                  
-                    child: const Text(
-                      'Submit Photo',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                      },
+                      child: const Text(
+                        'Submit Photo',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

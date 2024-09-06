@@ -107,7 +107,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                       child: Text(
                         startNowText,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 17,
                           color: Color(0xFF024206),
                           fontWeight: FontWeight.bold,
                         ),
