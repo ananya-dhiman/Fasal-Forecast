@@ -42,9 +42,11 @@ dependencies:
   image_picker: ^0.8.7+4  # Add this for picking images
   http: ^1.2.2
   translator: ^1.0.0
-  
-  
-  
+  dio: ^5.0.10
+
+
+
+
 
 dev_dependencies:
   flutter_test:

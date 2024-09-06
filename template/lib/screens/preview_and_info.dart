@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart'; // Import Dio package
 import 'package:template/camera.dart';
 import 'translate_function.dart'; // Import the translation function
 
@@ -19,11 +21,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // Local state variables for translated texts
-  String locationText = 'Location';
-  String bilzenText = 'Bilzen, Tanjungbalai';
+  double? humidity;
+  double? tempMax;
+  double? tempMin;
+  double? windSpeed;
   String previewText = 'Upload Images to Get Result';
   String uploadText = 'Upload Picture';
   String takePictureText = 'Take A Picture';
+
+  Dio dio = Dio(); // Create Dio instance
 
   @override
   void initState() {
@@ -32,15 +38,37 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _initializeTranslations() async {
-    // Translate all texts based on the preset language
-    locationText = await translateText('Location');
-    bilzenText = await translateText('Bilzen, Tanjungbalai');
-    previewText = await translateText('Preview');
-    uploadText = await translateText('Upload Picture');
-    takePictureText = await translateText('Take A Picture');
+    try {
+      // Replace 'your_machine_ip' with your actual local IP address
+      final response = await dio.get('http://127.0.0.1:5000/envdata');
 
-    if (mounted) { // Check if the widget is still mounted before calling setState
-      setState(() {}); // Update the state to reflect translations
+      if (response.statusCode == 200) {
+        // Decode the response body
+        final data = response.data;
+        print(data);
+
+        // Update state with the fetched data
+        setState(() {
+          humidity = data['humidity']?.toDouble();
+          tempMax = data['temp_max']?.toDouble();
+          tempMin = data['temp_min']?.toDouble();
+          windSpeed = data['wind_speed']?.toDouble();
+        });
+
+        // Translate all texts based on the preset language
+        previewText = await translateText('Preview');
+        uploadText = await translateText('Upload Picture');
+        takePictureText = await translateText('Take A Picture');
+
+        // Update the translated text into the state
+        setState(() {
+          previewText = previewText;
+          uploadText = uploadText;
+          takePictureText = takePictureText;
+        });
+      }
+    } catch (e) {
+      print('Error fetching environmental data: $e');
     }
   }
 
@@ -48,7 +76,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Color(0xFF024206),
+        backgroundColor: Colors.green[900],
         elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.all(10.0),
@@ -56,7 +84,6 @@ class _HomePageState extends State<HomePage> {
             Icons.grass,
             color: Colors.orangeAccent,
           ),
-          
         ),
       ),
       body: Container(
@@ -66,12 +93,20 @@ class _HomePageState extends State<HomePage> {
           children: [
             const SizedBox(height: 16),
             Text(
-              locationText,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              humidity != null ? 'Humidity: $humidity%' : 'Loading humidity...',
+              style: TextStyle(fontSize: 20, color: Colors.green[900]),
             ),
             Text(
-              bilzenText,
-              style: TextStyle(fontSize: 20, color: Color(0xFF024206)),
+              tempMax != null ? 'Max Temp: $tempMax°C' : 'Loading max temp...',
+              style: TextStyle(fontSize: 20, color: Colors.green[900]),
+            ),
+            Text(
+              tempMin != null ? 'Min Temp: $tempMin°C' : 'Loading min temp...',
+              style: TextStyle(fontSize: 20, color: Colors.green[900]),
+            ),
+            Text(
+              windSpeed != null ? 'Wind Speed: $windSpeed m/s' : 'Loading wind speed...',
+              style: TextStyle(fontSize: 20, color: Colors.green[900]),
             ),
             const SizedBox(height: 16),
             Container(
@@ -103,8 +138,8 @@ class _HomePageState extends State<HomePage> {
                       style: const TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF024206),
-                      minimumSize: Size(double.infinity, 50),
+                      backgroundColor: const Color(0xFF024206),
+                      minimumSize: const Size(double.infinity, 50),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -127,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                       style: const TextStyle(color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF024206),
+                      backgroundColor: const Color(0xFF024206),
                       minimumSize: const Size(double.infinity, 50),
                     ),
                   ),
