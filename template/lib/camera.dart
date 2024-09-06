@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class Page5 extends StatefulWidget {
   @override
@@ -55,6 +56,20 @@ class _CameraScreenState extends State<Page5> {
      catch (e) {
       print(e);
     }
+      Future<void> _uploadImage(String imagePath) async {
+    final uri = Uri.parse('localhost:5000');
+    final request = http.MultipartRequest('POST', uri)
+      ..files.add(await http.MultipartFile.fromPath('file', imagePath));
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('Image uploaded successfully');
+    } else {
+      print('Failed to upload image');
+    }
+  }
+
   }
 
   void _retakePhoto() {
