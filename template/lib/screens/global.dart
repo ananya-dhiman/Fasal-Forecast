@@ -1,4 +1,4 @@
 // globals.dart
-library my_app.globals; // The 'library' directive makes variables globally accessible.
+library my_app.globals;
 
 String selectedLanguage = 'en'; 

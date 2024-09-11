@@ -7,7 +7,6 @@ class Page7 extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DiseaseResultScreen(),
-      
     );
   }
 }
@@ -20,7 +19,7 @@ class DiseaseResultScreen extends StatelessWidget {
         backgroundColor:const Color(0xFF024206),
         elevation: 0,
         title:const  Icon(
-          Icons.grass, // Assuming this for the crop icon at the top
+          Icons.grass,
           color: Color(0xFFFFB81C),
         ),
         centerTitle: true,
@@ -73,7 +72,6 @@ class DiseaseResultScreen extends StatelessWidget {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor:Color(0xFF024206),
-                      
                    // Button color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'global.dart'; // Import the global language variable
 import 'translate_function.dart';
-import 'preview_and_info.dart'; // Import the translation function
+import 'preview_and_info.dart';
 
 class Page3 extends StatelessWidget {
   @override
@@ -56,8 +55,8 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
     aboutDescriptionText1 = await translateText('At Fasal Forecast, we\'re committed to helping farmers protect their crops and boost their yields with advanced technology. Our AI-driven Crop Disease Prediction uses the latest machine learning to analyze crop images and environmental data, giving you fast and accurate disease detection.');
     aboutDescriptionText2 = await translateText('We know crop diseases can be unpredictable and costly. That’s why we’re here to support you in overcoming these challenges. Join us in our mission to make farming more productive and sustainable. Together, we can build a brighter future for agriculture.');
 
-    if (mounted) { // Check if the widget is still mounted before calling setState
-      setState(() {}); // Update the state to reflect translations
+    if (mounted) {
+      setState(() {});
     }
   }
 

@@ -7,8 +7,7 @@ class Page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Removed MaterialApp from here
-      backgroundColor: Color(0xFFD9F1C9), // Light green background
+      backgroundColor: Color(0xFFD9F1C9),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -21,7 +20,6 @@ class Page1 extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 10.0),
                   child: Image.asset(
                     'assets/icon.png',
-                    // Replace with the actual image asset or URL
                     height: 150,
                   ),
                 ),
@@ -47,7 +45,7 @@ class Page1 extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 30.0),
                   child: Image.asset(
-                    'assets/img1.png', // Replace with the actual image asset or URL
+                    'assets/img1.png',
                     height: 239,
                     width: 239,
                   ),
@@ -72,7 +70,7 @@ class Page1 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Page2(), // Correctly navigate to Page3
+                          builder: (context) => Page2(),
                         ),
                       );
                     },

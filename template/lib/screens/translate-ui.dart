@@ -10,13 +10,12 @@ class Page2 extends StatefulWidget {
 }
 
 class _TranslateScreenState extends State<Page2> {
-  // Default to English
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       
-      backgroundColor: const Color(0xFFD9F1C9), // Light green background
+      backgroundColor: const Color(0xFFD9F1C9),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
