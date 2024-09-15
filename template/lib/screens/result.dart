@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 
 class Page7 extends StatelessWidget {
+  const Page7({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DiseaseResultScreen(),
     );
@@ -12,6 +14,10 @@ class Page7 extends StatelessWidget {
 }
 
 class DiseaseResultScreen extends StatelessWidget {
+  const DiseaseResultScreen({super.key});
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +77,7 @@ class DiseaseResultScreen extends StatelessWidget {
                  const SizedBox(height: 10),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:Color(0xFF024206),
+                      backgroundColor:const Color(0xFF024206),
                    // Button color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

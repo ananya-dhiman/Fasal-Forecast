@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:template/screens/result.dart';
 
 class Page5 extends StatefulWidget {
+  const Page5({super.key});
+
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -52,7 +54,7 @@ class _CameraScreenState extends State<Page5> {
      catch (e) {
       print(e);
     }
-      Future<void> _uploadImage(String imagePath) async {
+      Future<void> uploadImage(String imagePath) async {
     final uri = Uri.parse('http://127.0.0.1:5000/predict');
     final request = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('file', imagePath));
@@ -76,23 +78,23 @@ class _CameraScreenState extends State<Page5> {
   @override
   Widget build(BuildContext context) {
     if (_controller == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
-      appBar: AppBar(title: Text('Take a Picture')),
+      appBar: AppBar(title: const Text('Take a Picture')),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return CameraPreview(_controller!); // Display camera preview
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera),
         onPressed: _takePicture,
+        child: const Icon(Icons.camera),
       ),
     );
   }
@@ -103,7 +105,7 @@ class ImagePreviewScreen extends StatelessWidget {
   final String imagePath;
   final VoidCallback onRetake;
 
-  const ImagePreviewScreen({required this.imagePath, required this.onRetake});
+  const ImagePreviewScreen({super.key, required this.imagePath, required this.onRetake});
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +175,7 @@ class ImagePreviewScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Page7()),
+                          MaterialPageRoute(builder: (context) => const Page7()),
                         );
                       },
                       child: const Text(

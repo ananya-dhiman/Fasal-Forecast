@@ -8,10 +8,12 @@ import 'screens/result.dart';
 
 
 void main() {
-  runApp(MyCropApp());
+  runApp(const MyCropApp());
 }
 
 class MyCropApp extends StatelessWidget {
+  const MyCropApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,12 +21,12 @@ class MyCropApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, 
       initialRoute: '/front_page',
       routes: {
-        '/front_page': (context) => Page1(),
-        '/translate_ui':(context) => Page2(),
-        '/about': (context) => Page3(),
-        '/preview_and_info': (context) => Page4(),
-        '/camera':(context) => Page5(),
-        '/result':(context)=> Page7(),
+        '/front_page': (context) => const Page1(),
+        '/translate_ui':(context) => const Page2(),
+        '/about': (context) => const Page3(),
+        '/preview_and_info': (context) => const Page4(),
+        '/camera':(context) => const Page5(),
+        '/result':(context)=> const Page7(),
       },
     );
   }

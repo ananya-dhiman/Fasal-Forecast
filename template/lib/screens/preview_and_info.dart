@@ -1,10 +1,14 @@
-import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart'; // Import Dio package
+import 'package:image_picker/image_picker.dart'; // Import image picker package
+import 'package:path/path.dart';
 import 'package:template/camera.dart';
 import 'translate_function.dart'; // Import the translation function
 
 class Page4 extends StatelessWidget {
+  const Page4({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,12 +19,13 @@ class Page4 extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  // Local state variables for translated texts
   double? humidity;
   double? tempMax;
   double? tempMin;
@@ -28,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   String previewText = 'Upload Images to Get Result';
   String uploadText = 'Upload Picture';
   String takePictureText = 'Take A Picture';
-
+  File? _image; // Local state to store the selected image
   Dio dio = Dio(); // Create Dio instance
 
   @override
@@ -39,15 +44,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _initializeTranslations() async {
     try {
-      // Use '10.0.2.2' to connect to the host machine when using the Android emulator
       final response = await dio.get('http://10.0.2.2:5000/envdata');
 
       if (response.statusCode == 200) {
-        // Decode the response body
         final data = response.data;
-        print(data);
 
-        // Update state with the fetched data
         setState(() {
           humidity = data['humidity']?.toDouble();
           tempMax = data['temp_max']?.toDouble();
@@ -60,15 +61,52 @@ class _HomePageState extends State<HomePage> {
         uploadText = await translateText('Upload Picture');
         takePictureText = await translateText('Take A Picture');
 
-        // Update the translated text into the state
-        setState(() {
-          previewText = previewText;
-          uploadText = uploadText;
-          takePictureText = takePictureText;
-        });
+        setState(() {});
       }
     } catch (e) {
       print('Error fetching environmental data: $e');
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+        previewText = 'Image selected';
+      });
+    } else {
+      print('No image selected.');
+    }
+  }
+
+  Future<void> _uploadImage() async {
+    if (_image == null) {
+      print('No image to upload');
+      return;
+    }
+
+    try {
+      String fileName = basename(_image!.path);
+      FormData formData = FormData.fromMap({
+        "file": await MultipartFile.fromFile(_image!.path, filename: fileName),
+      });
+
+      Response response = await dio.post("http://10.0.2.2:5000/upload", data: formData);
+      // print(response.data);
+
+      if (response.statusCode == 200) {
+        setState(() {
+          previewText = 'Image uploaded successfully';
+        });
+      } else {
+        setState(() {
+          previewText = 'Image upload failed';
+        });
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
     }
   }
 
@@ -114,10 +152,12 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height * 0.4,
               color: Colors.white,
               child: Center(
-                child: Text(
-                  previewText,
-                  style: const TextStyle(fontSize: 18),
-                ),
+                child: _image == null
+                    ? Text(
+                        previewText,
+                        style: const TextStyle(fontSize: 18),
+                      )
+                    : Image.file(_image!),
               ),
             ),
             const Spacer(),
@@ -126,11 +166,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // API INTEGRATION HERE
-                    },
+                    onPressed: _pickImage, // Pick an image from gallery
                     icon: const Icon(
-                      Icons.upload,
+                      Icons.photo_library,
                       color: Colors.white,
                     ),
                     label: Text(
@@ -144,11 +182,27 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
+                    onPressed: _uploadImage, // Upload the selected image
+                    icon: const Icon(
+                      Icons.upload,
+                      color: Colors.white,
+                    ),
+                    label: const Text(
+                      'Upload Image',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF024206),
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Page5(), // Correctly navigate to Page5
+                          builder: (context) => const Page5(), // Correctly navigate to Page5
                         ),
                       );
                       // Add your take a picture function here

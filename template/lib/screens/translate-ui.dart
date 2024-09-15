@@ -5,6 +5,8 @@ import 'global.dart';
 
 
 class Page2 extends StatefulWidget {
+  const Page2({super.key});
+
   @override
   _TranslateScreenState createState() => _TranslateScreenState();
 }
@@ -58,7 +60,7 @@ class _TranslateScreenState extends State<Page2> {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -104,7 +106,7 @@ class _TranslateScreenState extends State<Page2> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Page3(),
+                        builder: (context) => const Page3(),
                       ),
                     );
                   },
