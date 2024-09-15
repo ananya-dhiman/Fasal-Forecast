@@ -8,7 +8,7 @@ from tensorflow.keras.models import load_model
 
 
 def predict_disease():
-    model_path = str(os.getcwd()) + '/FasalForecast/crop_disease_identification_model.h5'
+    model_path = str(os.getcwd()) + '/crop_disease_identification_model.h5'
     model = load_model(model_path)
 
     labels = ['American Bollworm on Cotton', 'Anthracnose on Cotton', 'Army worm',
@@ -20,7 +20,7 @@ def predict_disease():
             'Mosaic sugarcane', 'pink bollworm in cotton', 'red cotton bug', 'RedRot sugarcane', 
             'RedRust sugarcane', 'Rice Blast', 'Sugarcane Healthy', 'thirps on  cotton', 
             'Tungro', 'Wheat aphid', 'Wheat black rust']
-    image_path = os.getcwd() + '/FasalForecast/static/uploads/image.jpg' # not working
+    image_path = os.getcwd() + '/static/uploads/image.jpg' # not working
     img = image.load_img(image_path, target_size=(299, 299))  # Load the image with target size matching the model input
     img_array = image.img_to_array(img)  # Convert the image to a NumPy array
     img_array = np.expand_dims(img_array, axis=0)  # Expand dimensions to match model input
@@ -46,4 +46,4 @@ def predict_disease():
     # print(f"Predicted class index: {predicted_class[0]}")
     return dictionary
 
-print(predict_disease())
+# print(predict_disease())

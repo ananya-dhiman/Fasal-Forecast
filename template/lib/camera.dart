@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:template/screens/result.dart';
+import 'package:template/screens/preview_and_info.dart';
 
 class Page5 extends StatefulWidget {
   const Page5({super.key});
@@ -43,31 +44,15 @@ class _CameraScreenState extends State<Page5> {
     try {
       await _initializeControllerFuture;
       final image = await _controller!.takePicture();
-      //The Image validator should go here
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ImagePreviewScreen(imagePath: image.path, onRetake: _retakePhoto),
-          ),
-        );
-      }
-     catch (e) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ImagePreviewScreen(imagePath: image.path, onRetake: _retakePhoto),
+        ),
+      );
+    } catch (e) {
       print(e);
     }
-      Future<void> uploadImage(String imagePath) async {
-    final uri = Uri.parse('http://127.0.0.1:5000/predict');
-    final request = http.MultipartRequest('POST', uri)
-      ..files.add(await http.MultipartFile.fromPath('file', imagePath));
-
-    final response = await request.send();
-
-    if (response.statusCode == 200) {
-      print('Image uploaded successfully');
-    } else {
-      print('Failed to upload image');
-    }
-  }
-
   }
 
   void _retakePhoto() {
@@ -106,6 +91,29 @@ class ImagePreviewScreen extends StatelessWidget {
   final VoidCallback onRetake;
 
   const ImagePreviewScreen({super.key, required this.imagePath, required this.onRetake});
+
+  // Function to upload the image
+  Future<void> _uploadImage(BuildContext context) async {
+    try {
+      final uri = Uri.parse('http://127.0.0.1:5000/predict');
+      final request = http.MultipartRequest('POST', uri)
+        ..files.add(await http.MultipartFile.fromPath('file', imagePath));
+
+      final response = await request.send();
+      print(response);
+      if (response.statusCode == 200) {
+        print('Image uploaded successfully');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Page7()),
+        );
+      } else {
+        print('Failed to upload image');
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +181,8 @@ class ImagePreviewScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Page7()),
-                        );
+                        // Call the _uploadImage function to upload the image
+                        _uploadImage(context);
                       },
                       child: const Text(
                         'Submit Photo',

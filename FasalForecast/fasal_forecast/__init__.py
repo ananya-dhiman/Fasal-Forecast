@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'FasalForecast/fasal_forecast/static/uploads')
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static/uploads')
 
 # checking if dir exits
 if not os.path.exists(UPLOAD_FOLDER):

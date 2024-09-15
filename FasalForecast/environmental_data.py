@@ -11,11 +11,12 @@ def get_location():
         print(f"{data=}")
         location = data.get('loc')
         city = data.get('city')
+        region = data.get('region')
         print(f"{location=}")# Returns 'lat,lng' as a string
 
         if location:
             latitude, longitude = location.split(',')
-            return float(latitude), float(longitude), str(city)
+            return float(latitude), float(longitude), str(city), str(region)
         else:
             return None
     else:
@@ -52,4 +53,4 @@ def get_data():
     # print(weather_data)
     needed_data = [weather_data.get('main', {}).get('temp_min'), weather_data.get('main', {}).get('temp_max'), weather_data.get('main', {}).get('humidity'), weather_data.get('wind', {}).get('speed')]
     # print(needed_data)
-    return {'temp_min':needed_data[0], 'temp_max':needed_data[1], 'humidity':needed_data[2], 'wind_speed':needed_data[3]}
+    return {'temp_min':needed_data[0], 'temp_max':needed_data[1], 'humidity':needed_data[2], 'wind_speed':needed_data[3],  'city':location[2], 'region':location[3]}

@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart'; // Import image picker package
 import 'package:path/path.dart';
 import 'package:template/camera.dart';
 import 'translate_function.dart'; // Import the translation function
+import 'package:template/screens/result.dart';
 
 class Page4 extends StatelessWidget {
   const Page4({super.key});
@@ -30,6 +31,8 @@ class _HomePageState extends State<HomePage> {
   double? tempMax;
   double? tempMin;
   double? windSpeed;
+  String? region;
+  String? city;
   String previewText = 'Upload Images to Get Result';
   String uploadText = 'Upload Picture';
   String takePictureText = 'Take A Picture';
@@ -54,6 +57,8 @@ class _HomePageState extends State<HomePage> {
           tempMax = data['temp_max']?.toDouble();
           tempMin = data['temp_min']?.toDouble();
           windSpeed = data['wind_speed']?.toDouble();
+          city = data['city'];
+          region = data['region'];
         });
 
         // Translate all texts based on the preset language
@@ -66,6 +71,27 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print('Error fetching environmental data: $e');
     }
+  }
+
+  // Function to show alert dialog when no image is provided
+  void showNoImageAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("No Image Provided"),
+          content: const Text("Please upload or take a picture to continue."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _pickImage() async {
@@ -83,7 +109,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _uploadImage() async {
     if (_image == null) {
-      print('No image to upload');
+      print('No image to upload'); // Call the alert dialog if no image is provided
       return;
     }
 
@@ -94,7 +120,6 @@ class _HomePageState extends State<HomePage> {
       });
 
       Response response = await dio.post("http://10.0.2.2:5000/upload", data: formData);
-      // print(response.data);
 
       if (response.statusCode == 200) {
         setState(() {
@@ -146,6 +171,10 @@ class _HomePageState extends State<HomePage> {
               windSpeed != null ? 'Wind Speed: $windSpeed m/s' : 'Loading wind speed...',
               style: TextStyle(fontSize: 20, color: Colors.green[900]),
             ),
+            Text(
+              city != null && region != null ? 'Location: $city, $region' : 'Loading location details....',
+              style: TextStyle(fontSize: 23, color: Colors.green[900], fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 16),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
@@ -154,9 +183,9 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: _image == null
                     ? Text(
-                        previewText,
-                        style: const TextStyle(fontSize: 18),
-                      )
+                  previewText,
+                  style: const TextStyle(fontSize: 18),
+                )
                     : Image.file(_image!),
               ),
             ),
@@ -182,7 +211,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
-                    onPressed: _uploadImage, // Upload the selected image
+                    onPressed:() {
+                      _uploadImage();
+                      if (_image != null)
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Page7(), // Correctly navigate to Page5
+                          ),
+                        );
+                      else
+                        showNoImageAlertDialog(context); // Show alert if no image is selected
+                    },// Upload the selected image
                     icon: const Icon(
                       Icons.upload,
                       color: Colors.white,
