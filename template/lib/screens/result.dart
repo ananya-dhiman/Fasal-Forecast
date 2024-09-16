@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:dio/dio.dart';
 
 class Page7 extends StatelessWidget {
   const Page7({super.key});
@@ -13,18 +13,57 @@ class Page7 extends StatelessWidget {
   }
 }
 
-class DiseaseResultScreen extends StatelessWidget {
+class DiseaseResultScreen extends StatefulWidget {
   const DiseaseResultScreen({super.key});
 
-  
+  @override
+  _DiseaseResultScreenState createState() => _DiseaseResultScreenState();
+}
+
+class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
+  String diseaseLabel = "Fetching...";
+  double confidence = 0.0;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPrediction();
+  }
+
+  // Function to fetch prediction from Flask backend
+  Future<void> fetchPrediction() async {
+    try {
+      var dio = Dio();
+      var response = await dio.get('http://10.0.2.2:5000/predict');  // Replace with your backend URL
+
+      if (response.statusCode == 200) {
+        setState(() {
+          diseaseLabel = response.data['label'];
+          confidence = response.data['confidence'];
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          diseaseLabel = "Error fetching results";
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        diseaseLabel = "Error: ${e.toString()}";
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:const Color(0xFF024206),
+        backgroundColor: const Color(0xFF024206),
         elevation: 0,
-        title:const  Icon(
+        title: const Icon(
           Icons.grass,
           color: Color(0xFFFFB81C),
         ),
@@ -33,7 +72,11 @@ class DiseaseResultScreen extends StatelessWidget {
       body: Container(
         color: Colors.green[100],
         padding: const EdgeInsets.all(45),
-        child: Column(
+        child: isLoading
+            ? const Center(
+          child: CircularProgressIndicator(),
+        )
+            : Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -43,7 +86,7 @@ class DiseaseResultScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 34,
                 fontWeight: FontWeight.bold,
-                color:  Color(0xFF024206),
+                color: Color(0xFF024206),
               ),
             ),
             const SizedBox(height: 20),
@@ -55,30 +98,28 @@ class DiseaseResultScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    '90%',
-                    style: TextStyle(
-                      color:  Color(0xFF024206),
+                  Text(
+                    '${confidence.toStringAsFixed(2)}%',
+                    style: const TextStyle(
+                      color: Color(0xFF024206),
                       fontSize: 58,
                       fontWeight: FontWeight.bold,
-                      
                     ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'There is a 90% chance that your crops have disease name',
+                  Text(
+                    'There is a ${confidence.toStringAsFixed(2)}% chance that your crops have $diseaseLabel',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
+                    style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
-                 const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:const Color(0xFF024206),
-                   // Button color
+                      backgroundColor: const Color(0xFF024206), // Button color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -88,9 +129,10 @@ class DiseaseResultScreen extends StatelessWidget {
                     },
                     child: const Text(
                       'Learn More',
-                      style: TextStyle(color: Color(0xFFFFB81C),
+                      style: TextStyle(
+                        color: Color(0xFFFFB81C),
+                      ),
                     ),
-                  ),
                   ),
                 ],
               ),

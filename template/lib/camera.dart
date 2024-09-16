@@ -95,7 +95,7 @@ class ImagePreviewScreen extends StatelessWidget {
   // Function to upload the image
   Future<void> _uploadImage(BuildContext context) async {
     try {
-      final uri = Uri.parse('http://127.0.0.1:5000/predict');
+      final uri = Uri.parse('http://10.0.2.2:5000/predict');
       final request = http.MultipartRequest('POST', uri)
         ..files.add(await http.MultipartFile.fromPath('file', imagePath));
 
