@@ -14,4 +14,3 @@ if not os.path.exists(UPLOAD_FOLDER):
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 from fasal_forecast import routes
-print("new")

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'translate-ui.dart';
-import 'translate_function.dart';
-import 'global.dart';
 
 class Page1 extends StatelessWidget {
+  const Page1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD9F1C9),
+      backgroundColor: const Color(0xFFD9F1C9),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -60,8 +60,8 @@ class Page1 extends StatelessWidget {
                   height: 65,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 15.0),
-                      backgroundColor: Color(0xFF024206),
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      backgroundColor: const Color(0xFF024206),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -70,7 +70,7 @@ class Page1 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Page2(),
+                          builder: (context) => const Page2(),
                         ),
                       );
                     },

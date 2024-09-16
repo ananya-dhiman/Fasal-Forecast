@@ -46,4 +46,4 @@ def predict_disease():
     # print(f"Predicted class index: {predicted_class[0]}")
     return dictionary
 
-print(predict_disease())
+# print(predict_disease())

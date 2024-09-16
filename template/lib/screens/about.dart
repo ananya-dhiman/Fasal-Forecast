@@ -3,9 +3,11 @@ import 'translate_function.dart';
 import 'preview_and_info.dart';
 
 class Page3 extends StatelessWidget {
+  const Page3({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: StickyHeaderExample(),
       debugShowCheckedModeBanner: false,
     );
@@ -13,6 +15,8 @@ class Page3 extends StatelessWidget {
 }
 
 class StickyHeaderExample extends StatefulWidget {
+  const StickyHeaderExample({super.key});
+
   @override
   _StickyHeaderExampleState createState() => _StickyHeaderExampleState();
 }
@@ -92,7 +96,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                     width: 150,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFFB81C),
+                        backgroundColor: const Color(0xFFFFB81C),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -100,7 +104,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Page4()),
+                          MaterialPageRoute(builder: (context) => const Page4()),
                         );
                       },
                       child: Text(
@@ -171,7 +175,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, size: 50, color: Color(0xFF024206)),
+        Icon(icon, size: 50, color: const Color(0xFF024206)),
         const SizedBox(height: 10),
         Text(
           title,
