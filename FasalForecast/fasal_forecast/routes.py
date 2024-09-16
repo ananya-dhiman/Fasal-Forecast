@@ -34,7 +34,8 @@ def upload_image():
 
 @app.route('/predict')
 def make_prediction():
-    return jsonify(predict_disease())
+    prediction = predict_disease()
+    return jsonify(prediction)
 
 # temp_min , temp_max , humidity and wind speed
 @app.route('/envdata')
