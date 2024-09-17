@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import './about.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,106 +13,119 @@ class MyApp extends StatelessWidget {
 
 class Page4 extends StatelessWidget {
   const Page4({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.lightGreen[100], // Light green background
-        padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Top logo/icon
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.green[800],
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF024206),
+        title: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(0),
+            child: Icon(
+              Icons.grass,
+              color: Colors.orangeAccent,
+            ),
+          ),
+        ),
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
               ),
-              child: Center(
-                child: Icon(
-                  Icons.grain, // Example icon
-                  size: 50,
-                  color: Colors.yellowAccent,
+              child: IntrinsicHeight(
+                child: Container(
+                  color: Colors.green[50],  // Set background to the desired color
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "LOGIN",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF024206), // Adjusted to white for better contrast
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.orangeAccent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: [
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                hintText: "johndoe@gmail.com",
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: "Enter Password",
+                                hintText: "Enter password",
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: "Confirm Password",
+                                hintText: "Confirm password",
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const Page5()), //About
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF024206),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: const EdgeInsets.symmetric(vertical: 15),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Log In",
+                                  style: TextStyle(fontSize: 20, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Spacer to push content upwards if needed
+                      Expanded(child: Container()),
+                    ],
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
-
-            // Login text
-            Text(
-              "LOGIN",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.green[900],
-              ),
-            ),
-            SizedBox(height: 20),
-
-            // Form container with email and password fields
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.orangeAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  // Email field
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      hintText: "johndoe@gmail.com",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Password field
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Enter Password",
-                      hintText: "Enter password",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Confirm password field
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      hintText: "Confirm password",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Sign In button
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
