@@ -1,4 +1,6 @@
 # Miscellaneous
+*.pyc
+__pycache__/
 *.class
 *.log
 *.pyc
