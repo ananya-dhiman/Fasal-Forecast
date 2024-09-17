@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(Page8());
-}
 
-class Page8 extends StatelessWidget {
-  const Page8({super.key});
+class Page11 extends StatelessWidget {
+  const Page11({super.key});
 
   @override
   Widget build(BuildContext context) {
