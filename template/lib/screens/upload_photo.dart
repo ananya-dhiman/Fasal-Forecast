@@ -35,8 +35,9 @@ class _HomePageState extends State<HomePage> {
   double? windSpeed;
   String? region;
   String? city;
+  String selectedCrop = 'co';
   String previewText = 'Upload Images to Get Result';
-  String uploadText = 'Upload Picture';
+  String uploadText = 'Select Picture';
   String takePictureText = 'Take A Picture';
   File? _image; // Local state to store the selected image
   Dio dio = Dio(); // Create Dio instance
@@ -64,8 +65,8 @@ class _HomePageState extends State<HomePage> {
         });
 
         // Translate all texts based on the preset language
-        previewText = await translateText('Preview');
-        uploadText = await translateText('Upload Picture');
+        previewText = await translateText('Upload Images to Get Result');
+        uploadText = await translateText('Select Picture');
         takePictureText = await translateText('Take A Picture');
 
         setState(() {});
@@ -139,24 +140,35 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
-      return Scaffold(
+    return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 200,
         backgroundColor: const Color(0xFF024206),
-        elevation: 0,
-     
-          title:const Center(
-          child: Padding(
-      padding: EdgeInsets.all(0),
-          
-          child: Icon(
-            Icons.grass,
-            color: Colors.orangeAccent,
-          ),
-        ),
+        automaticallyImplyLeading: false,
+        flexibleSpace: const Stack(
+          fit: StackFit.expand,
+          children: [
+            // Centered grass icon
+            Center(
+              child: Icon(
+                Icons.grass,
+                size: 90,
+                color: Colors.orange,
+              ),
+            ),
+            // Positioned bottom-right icon
+            Positioned(
+              right: 10,
+              bottom: 10,
+              child: Icon(
+                Icons.perm_identity_sharp,
+                size: 60,
+                color: Colors.orange,
+              ),
+            ),
+          ],
         ),
       ),
-      
       body: Container(
         color: Colors.green[50],
         child: Column(
@@ -164,29 +176,60 @@ class _HomePageState extends State<HomePage> {
           children: [
             const SizedBox(height: 16),
             Text(
-              humidity != null ? 'Humidity: $humidity%' : 'Loading humidity...',
+              tempMax != null ? 'Max Temp: $tempMax°C   Min Temp: $tempMin°C' : 'Loading temp...',
               style: TextStyle(fontSize: 20, color: Colors.green[900]),
             ),
             Text(
-              tempMax != null ? 'Max Temp: $tempMax°C' : 'Loading max temp...',
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
-            ),
-            Text(
-              tempMin != null ? 'Min Temp: $tempMin°C' : 'Loading min temp...',
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
-            ),
-            Text(
-              windSpeed != null ? 'Wind Speed: $windSpeed m/s' : 'Loading wind speed...',
+              humidity != null ? 'Humidity: $humidity%      Wind Speed: $windSpeed m/s' : 'Loading humidity and wind speed...',
               style: TextStyle(fontSize: 20, color: Colors.green[900]),
             ),
             Text(
               city != null && region != null ? 'Location: $city, $region' : 'Loading location details....',
               style: TextStyle(fontSize: 23, color: Colors.green[900], fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 30),
+            Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), // Padding inside the container
+                width: MediaQuery.of(context).size.width * 0.7,
+                height: MediaQuery.of(context).size.height * 0.06,
+                decoration: BoxDecoration(
+                  color: Colors.white, // Background color of the dropdown
+                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: selectedCrop,
+                    items: const [
+                      DropdownMenuItem(value: 'co', child: Text('Cotton', textAlign: TextAlign.center)),
+                      DropdownMenuItem(value: 'wh', child: Text('Wheat', textAlign: TextAlign.center)),
+                      DropdownMenuItem(value: 'su', child: Text('Sugarcane', textAlign: TextAlign.center)),
+                      DropdownMenuItem(value: 'ma', child: Text('Maize', textAlign: TextAlign.center)),
+                    ],
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedCrop = newValue ?? 'co';
+                      });
+                    },
+                    isExpanded: true,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    dropdownColor: Colors.white,
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: Color(0xFF024206), // Arrow color
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
             Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.4,
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.3,
               color: Colors.white,
               child: Center(
                 child: _image == null
@@ -219,30 +262,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
-                    onPressed:() {
+                    onPressed: () {
                       _uploadImage();
-                      // if (_image != null)
-                      //   // Navigator.push(
-                      //   //   context,
-                      //   //   MaterialPageRoute(
-                      //   //     builder: (context) => const Page9(), // seed_reward
-                      //   //   ),
-                      //   // );
-                      // else
-                      //   showNoImageAlertDialog(context); // Show alert if no image is selected
-                      if (_image != null){
+                      if (_image != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Page8(), //Result
+                            builder: (context) => const Page10(), //Result
                           ),
                         );
-
-                      }
-                        
-                      else
+                      } else {
                         showNoImageAlertDialog(context); // Show alert if no image is selected
-                    },// Upload the selected image
+                      }
+                    },
                     icon: const Icon(
                       Icons.upload,
                       color: Colors.white,
@@ -259,13 +291,12 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(
-                           builder: (context) => const Page7(), // Camera
-                         ),
-                       );
-                      // Add your take a picture function here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Page7(), //Result
+                        ),
+                      );
                     },
                     icon: const Icon(
                       Icons.camera_alt,
@@ -287,7 +318,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-    
     );
   }
 }

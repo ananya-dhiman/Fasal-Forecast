@@ -40,7 +40,7 @@ class Page4 extends StatelessWidget {
               ),
               child: IntrinsicHeight(
                 child: Container(
-                  color: const Color(0xFFDFF7CB), // Set background to the desired color
+                  color: const Color(0xFFDFF7CB),  // Set background to the desired color
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +98,7 @@ class Page4 extends StatelessWidget {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const Page5()), //About
+                                  MaterialPageRoute(builder: (context) => const Page5()), //Navigate to Page5
                                 );
                               },
                               style: ElevatedButton.styleFrom(
