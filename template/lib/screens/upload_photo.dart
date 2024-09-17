@@ -221,7 +221,6 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton.icon(
                     onPressed:() {
                       _uploadImage();
-<<<<<<< HEAD
                       // if (_image != null)
                       //   // Navigator.push(
                       //   //   context,
@@ -231,7 +230,6 @@ class _HomePageState extends State<HomePage> {
                       //   // );
                       // else
                       //   showNoImageAlertDialog(context); // Show alert if no image is selected
-=======
                       if (_image != null)
                         Navigator.push(
                           context,
@@ -241,7 +239,6 @@ class _HomePageState extends State<HomePage> {
                         );
                       else
                         showNoImageAlertDialog(context); // Show alert if no image is selected
->>>>>>> c862f27a0de0a12a2c935160e3bf8fbec3e251c0
                     },// Upload the selected image
                     icon: const Icon(
                       Icons.upload,
