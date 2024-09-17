@@ -4,7 +4,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.inception_v3 import preprocess_input
 from tensorflow.keras.models import load_model
-
+import locale
+import sys
 
 def predict_disease():
     try:
