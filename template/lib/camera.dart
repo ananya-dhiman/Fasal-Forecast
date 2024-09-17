@@ -111,10 +111,10 @@ class ImagePreviewScreen extends StatelessWidget {
         );
       } else {
         print('Failed to upload image');
-         Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Page8()),//Goes to error page
-        );
+        //  Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const Page8()),//Goes to error page
+        // );
       }
     } catch (e) {
       print('Error uploading image: $e');
