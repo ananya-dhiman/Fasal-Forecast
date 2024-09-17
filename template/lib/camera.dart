@@ -105,10 +105,10 @@ class ImagePreviewScreen extends StatelessWidget {
       print(response);
       if (response.statusCode == 200) {
         print('Image uploaded successfully');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Page8()),//Result
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const Page8()),//Result
+        // );
       } else {
         print('Failed to upload image');
         //  Navigator.push(
