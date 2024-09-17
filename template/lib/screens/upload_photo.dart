@@ -221,6 +221,17 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton.icon(
                     onPressed:() {
                       _uploadImage();
+<<<<<<< HEAD
+                      // if (_image != null)
+                      //   // Navigator.push(
+                      //   //   context,
+                      //   //   MaterialPageRoute(
+                      //   //     builder: (context) => const Page9(), // seed_reward
+                      //   //   ),
+                      //   // );
+                      // else
+                      //   showNoImageAlertDialog(context); // Show alert if no image is selected
+=======
                       if (_image != null)
                         Navigator.push(
                           context,
@@ -230,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                         );
                       else
                         showNoImageAlertDialog(context); // Show alert if no image is selected
+>>>>>>> c862f27a0de0a12a2c935160e3bf8fbec3e251c0
                     },// Upload the selected image
                     icon: const Icon(
                       Icons.upload,
@@ -247,12 +259,12 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Page7(), // Camera
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const Page7(), // Camera
+                      //   ),
+                      // );
                       // Add your take a picture function here
                     },
                     icon: const Icon(
