@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import './upload_photo.dart';
 
-void main() {
-  runApp(Page8());
-}
-
-class Page8 extends StatelessWidget {
-  const Page8({super.key});
+class Page11 extends StatelessWidget {
+  const Page11({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,7 @@ class Page8 extends StatelessWidget {
                   Positioned(
                     right: 10,
                     bottom: 10,
-                    child: const Icon(
+                    child: Icon(
                       Icons.perm_identity_sharp,
                       size: 60,
                       color: Colors.orange,
@@ -69,6 +66,11 @@ class Page8 extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Define the action for Try Again button
+                      Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const Page6()), //About
+                                );
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF024206), // Button color

@@ -188,7 +188,11 @@ class ImagePreviewScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Call the _uploadImage function to upload the image
-                        _uploadImage(context);
+                        //_uploadImage(context);
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Page11()), //Error
+                                );
                       },
                       child: const Text(
                         'Submit Photo',
