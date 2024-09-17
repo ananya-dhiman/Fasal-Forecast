@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'dart:async'; // Import for Future.delayed
 import 'package:template/screens/upload_photo.dart';
 
 class Page10 extends StatelessWidget {
@@ -9,31 +10,31 @@ class Page10 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DiseaseResultScreen(),
+      home: FetchingDataScreen(), // Start with the fetching data screen
     );
   }
 }
 
-class DiseaseResultScreen extends StatefulWidget {
-  const DiseaseResultScreen({super.key});
+class FetchingDataScreen extends StatefulWidget {
+  const FetchingDataScreen({super.key});
 
   @override
-  _DiseaseResultScreenState createState() => _DiseaseResultScreenState();
+  _FetchingDataScreenState createState() => _FetchingDataScreenState();
 }
 
-class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
+class _FetchingDataScreenState extends State<FetchingDataScreen> {
   String diseaseLabel = "Fetching...";
   double confidence = 0.0;
-  bool isLoading = true;
+  bool fetchCompleted = false;
 
   @override
   void initState() {
     super.initState();
     fetchPrediction();
-    // Automatically call the dialog when the page opens
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showSeedAlertBox(context);
+    Future.delayed(const Duration(seconds: 7), () {
+        showSeedAlertBox(context);
     });
+
   }
 
   // Function to fetch prediction from Flask backend
@@ -46,22 +47,23 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
         setState(() {
           diseaseLabel = response.data['label'];
           confidence = response.data['confidence'];
-          isLoading = false;
+          fetchCompleted = true; // Fetch is completed
         });
       } else {
         setState(() {
           diseaseLabel = "Error fetching results";
-          isLoading = false;
+          fetchCompleted = true;
         });
       }
     } catch (e) {
       setState(() {
         diseaseLabel = "Error: ${e.toString()}";
-        isLoading = false;
+        fetchCompleted = true;
       });
     }
   }
 
+  // Function to show the seed alert box
   void showSeedAlertBox(BuildContext context) {
     showDialog(
       context: context,
@@ -75,60 +77,68 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
             padding: const EdgeInsets.all(20),
             height: 480,  // Set a fixed height
             width: 350,   // Set a fixed width
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Image(
-                    image: AssetImage('assets/seed.png'),
-                    height: 200,
-                    width: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Image(
+                  image: AssetImage('assets/seed.png'),
+                  height: 200,
+                  width: 200,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'CONGRATULATIONS!\nYOU WON A SEED',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF024206),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'CONGRATULATIONS!\nYOU WON A SEED',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF024206),
-                    ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Keep uploading pictures and\ngrow a sapling',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF024206),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Keep uploading pictures and\ngrow a sapling',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF024206),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 100,  // Set the desired width
-                    height: 60,  // Set the desired height
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF024206),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                      child: const Text(
-                        "OK",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                        ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 100,  // Set the desired width
+                  height: 60,  // Set the desired height
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF024206),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                  )
-
-                ],
-              ),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                      // After closing the dialog, navigate to the result page
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DiseaseResultScreen(
+                            diseaseLabel: diseaseLabel,
+                            confidence: confidence,
+                            isLoading: !fetchCompleted, // If fetch not completed, show loader
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         );
@@ -136,6 +146,85 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFD9F1C9), // Background color
+      body: Center(
+        child: Container(
+          height: 400,
+          width: 300, // Width of the container
+          padding: const EdgeInsets.all(20), // Padding inside the container
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 50), // Margin around the container
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFB81C), // Background color for the container
+            borderRadius: BorderRadius.circular(15), // Rounded corners
+            border: Border.all(
+              color: Colors.black54,
+              width: 2, // Border width
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26, // Shadow color
+                blurRadius: 10, // Shadow blur
+                offset: Offset(0, 5), // Shadow position
+              ),
+            ],
+          ),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(), // Show loading indicator
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Making prediction...🤔🤔',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF024206), // Text color
+                  ),
+                  textAlign: TextAlign.center, // Align text to center
+                ),
+              ),
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Fun Fact: Did you know plants can communicate through chemicals?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Colors.black54, // Text color
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DiseaseResultScreen extends StatefulWidget {
+  final String diseaseLabel;
+  final double confidence;
+  final bool isLoading;
+
+  const DiseaseResultScreen({
+    super.key,
+    required this.diseaseLabel,
+    required this.confidence,
+    required this.isLoading,
+  });
+
+  @override
+  _DiseaseResultScreenState createState() => _DiseaseResultScreenState();
+}
+
+class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,7 +259,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
         height: double.infinity,
         color: const Color(0xFFE8F5E9),
         padding: const EdgeInsets.all(30),
-        child: isLoading
+        child: widget.isLoading
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
           child: Column(
@@ -195,7 +284,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                 child: Column(
                   children: [
                     Text(
-                      '${confidence.toStringAsFixed(2)}%',
+                      '${widget.confidence.toStringAsFixed(2)}%',
                       style: const TextStyle(
                         color: Color(0xFF024206),
                         fontSize: 58,
@@ -205,7 +294,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'There is a ${confidence.toStringAsFixed(2)}% chance that your crops have $diseaseLabel',
+                      'There is a ${widget.confidence.toStringAsFixed(2)}% chance that your crops have ${widget.diseaseLabel}',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 18,
@@ -215,7 +304,8 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     const SizedBox(height: 30),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF024206), // Button color
+                        backgroundColor:
+                        const Color(0xFF024206), // Button color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -268,53 +358,41 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                       ),
                     ),
                   ],
+
                 ),
               ),
-              const SizedBox(height: 30),
-              SizedBox(
-                height: 50, // Set the desired height here
+              const SizedBox(height: 40),
+              Container(
+                height: 100, // Set desired height
+                width: 240, // Set desired width
+                padding: const EdgeInsets.all(10), // Set padding
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page6(), // Replace with your page
-                      ),
-                    );
-                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF024206), // Button color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page6(),
+                      ),
+                    );
+                  },
                   child: const Text(
-                    'Upload another Picture',
+                    'Upload a new picture',
                     style: TextStyle(
-                      color: Color(0xFFFFB81C),
+                      fontSize: 18,
+                      color: Colors.white
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class UploadPage extends StatelessWidget {
-  const UploadPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Upload Picture'),
-      ),
-      body: const Center(
-        child: Text('This is the upload page'),
       ),
     );
   }
