@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'screens/front_page.dart';
 import 'screens/about.dart';
-import 'screens/preview_and_info.dart';
+import 'screens/upload_photo.dart';
 import 'camera.dart';
 import 'screens/translate-ui.dart';
 import 'screens/result.dart';
+import 'screens/signup.dart';
 
 
 void main() {
@@ -23,10 +24,16 @@ class MyCropApp extends StatelessWidget {
       routes: {
         '/front_page': (context) => const Page1(),
         '/translate_ui':(context) => const Page2(),
-        '/about': (context) => const Page3(),
-        '/preview_and_info': (context) => const Page4(),
-        '/camera':(context) => const Page5(),
-        '/result':(context)=> const Page7(),
+        '/signup': (context) => const Page3(),
+        '/login': (context) => const Page4(),
+        '/about': (context) => const Page5(),
+        '/upload_photo': (context) => const Page6(),
+        '/camera':(context) => const Page7(),
+        '/error':(context)=> const Page8(),
+        '/seed_reward':(context)=> const Page9(),
+        '/result':(context)=> const Page10(),
+        
+
       },
     );
   }

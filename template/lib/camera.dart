@@ -4,7 +4,9 @@ import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:template/screens/result.dart';
-import 'package:template/screens/preview_and_info.dart';
+import 'package:template/screens/upload_photo.dart';
+import 'package:template/screens/error.dart';
+import 'package:template/screens/seed_reward.dart';
 
 class Page5 extends StatefulWidget {
   const Page5({super.key});
@@ -105,10 +107,14 @@ class ImagePreviewScreen extends StatelessWidget {
         print('Image uploaded successfully');
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Page7()),
+          MaterialPageRoute(builder: (context) => const Page9()),//Goes to reward page
         );
       } else {
         print('Failed to upload image');
+         Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Page8()),//Goes to error page
+        );
       }
     } catch (e) {
       print('Error uploading image: $e');

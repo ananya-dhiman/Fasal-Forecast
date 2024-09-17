@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/screens/about.dart'; 
+import 'package:template/screens/signup.dart'; 
 import 'global.dart';
 
 

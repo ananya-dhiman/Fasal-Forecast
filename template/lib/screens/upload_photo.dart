@@ -8,12 +8,12 @@ import 'translate_function.dart'; // Import the translation function
 import 'package:template/screens/result.dart';
 import './about.dart';
 
-class Page4 extends StatelessWidget {
-  const Page4({super.key});
+class Page6 extends StatelessWidget {
+  const Page6({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -138,15 +138,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async{
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Page3()), // Directly navigate to the Page3 (About page)
-    );
-     return false;// Allow the back button to work as expected
-    },
-      child:Scaffold(
+    
+      return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF024206),
         elevation: 0,
@@ -231,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Page7(), // Correctly navigate to Page5
+                            builder: (context) => const Page9(), // seed_reward
                           ),
                         );
                       else
@@ -256,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Page5(), // Correctly navigate to Page5
+                          builder: (context) => const Page7(), // Camera
                         ),
                       );
                       // Add your take a picture function here
@@ -281,7 +274,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-    ),
+    
     );
   }
 }

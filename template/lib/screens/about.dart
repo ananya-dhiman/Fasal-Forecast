@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'translate_function.dart';
-import 'preview_and_info.dart';
+import 'upload_photo.dart';
 
-class Page3 extends StatelessWidget {
-  const Page3({super.key});
+class Page5 extends StatelessWidget {
+  const Page5({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +110,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Page4()),
+                          MaterialPageRoute(builder: (context) => const Page6()),//Upload photo page
                         );
                       },
                       child: Text(
