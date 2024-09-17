@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './about.dart';
+import 'signup.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,7 +40,7 @@ class Page4 extends StatelessWidget {
               ),
               child: IntrinsicHeight(
                 child: Container(
-                  color:  const Color(0xFFDFF7CB),  // Set background to the desired color
+                  color: const Color(0xFFDFF7CB), // Set background to the desired color
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +50,7 @@ class Page4 extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFF024206), // Adjusted to white for better contrast
+                          color: Color(0xFF024206),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -114,36 +115,38 @@ class Page4 extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
-                      // Spacer to push content upwards if needed
-                      Expanded(child: Container()),
+                      const SizedBox(height: 20), // Add space between the yellow box and text/button
+                        const Spacer(),
+                      // "Have an account?" text
+                      const Text(
+                        "HAVE AN ACCOUNT?",
+                        style: TextStyle(
+                          color: Color(0xFF024206),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                  
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Page3()), //Login
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: const Color(0xFF024206),
+                        ),
+                        child: const Text(
+                          "Sign Up",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const Spacer(), // Optional spacer to push content upwards if needed
                     ],
-                      
-                      Text(
-              "HAVE AN ACCOUNT?",
-              style: TextStyle(
-                  color: Color(0xFF024206),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Page4()), //Login
-                );
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFF024206),
-              ),
-              child: const Text(
-                "Login",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
                   ),
                 ),
               ),
