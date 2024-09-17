@@ -4,7 +4,7 @@ import './about.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Page4(),
     );
@@ -39,7 +39,7 @@ class Page4 extends StatelessWidget {
               ),
               child: IntrinsicHeight(
                 child: Container(
-                  color: Colors.green[50],  // Set background to the desired color
+                  color:  const Color(0xFFDFF7CB),  // Set background to the desired color
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +114,36 @@ class Page4 extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            
                           ],
                         ),
                       ),
                       // Spacer to push content upwards if needed
                       Expanded(child: Container()),
                     ],
+                      
+                      Text(
+              "HAVE AN ACCOUNT?",
+              style: TextStyle(
+                  color: Color(0xFF024206),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Page4()), //Login
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF024206),
+              ),
+              child: const Text(
+                "Login",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
                   ),
                 ),
               ),

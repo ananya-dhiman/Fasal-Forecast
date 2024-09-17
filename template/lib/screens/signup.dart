@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './login.dart';
 import './about.dart';
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
 
 class Page3 extends StatelessWidget {
   const Page3({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class Page3 extends StatelessWidget {
         ),
       ),
       body: Container(
- // Light green background
+        color: const Color(0xFFDFF7CB), // Light green background
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -60,12 +62,11 @@ class Page3 extends StatelessWidget {
                       labelText: "Email",
                       hintText: "johndoe@gmail.com",
                       border: OutlineInputBorder(),
-                      
-                      filled: true, // Make the background fillable
+                      filled: true,
                       fillColor: Colors.white, // Set background to white
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Password field
                   const TextField(
@@ -73,9 +74,8 @@ class Page3 extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: "Password",
                       hintText: "Enter password",
-    
-                         border: OutlineInputBorder(),
-                      filled: true, // Make the background fillable
+                      border: OutlineInputBorder(),
+                      filled: true,
                       fillColor: Colors.white, // Set background to white
                     ),
                   ),
@@ -85,25 +85,22 @@ class Page3 extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Page5()),//About
-                        );
-
-
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Page5()), //About
+                      );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:const Color(0xFF024206),
+                      backgroundColor: const Color(0xFF024206),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     child: const Center(
                       child: Text(
                         "Sign In",
-                        style: TextStyle(fontSize: 20,color: Colors.white),
-                        
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
@@ -117,34 +114,33 @@ class Page3 extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 "Forgot password?",
-                style: TextStyle(color:Color(0xFF024206)),
+                style: TextStyle(color: Color(0xFF024206)),
               ),
             ),
             const SizedBox(height: 20),
 
             // Login button for users with an account
-            const Text("HAVE AN ACCOUNT?",
-            style: TextStyle(color:Color(0xFF024206),fontWeight: FontWeight.bold,fontSize:16),
-            
+            const Text(
+              "HAVE AN ACCOUNT?",
+              style: TextStyle(
+                  color: Color(0xFF024206),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
             ),
             TextButton(
-              onPressed: (
-                
-              ) {
+              onPressed: () {
                 Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Page4()),//Login
-                        );
-
+                  context,
+                  MaterialPageRoute(builder: (context) => const Page4()), //Login
+                );
               },
               style: TextButton.styleFrom(
                 backgroundColor: const Color(0xFF024206),
-                
               ),
-              child: const Text("Login",
-              style: TextStyle(color:Colors.white),
+              child: const Text(
+                "Login",
+                style: TextStyle(color: Colors.white),
               ),
-
             ),
           ],
         ),
