@@ -291,7 +291,12 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Add your take a picture function here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Page7(), //Result
+                        ),
+                      );
                     },
                     icon: const Icon(
                       Icons.camera_alt,

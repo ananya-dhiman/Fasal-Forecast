@@ -9,6 +9,7 @@ import 'screens/signup.dart';
 import 'screens/seed_reward.dart';
 import 'screens/error.dart';
 import 'screens/login.dart';
+import 'screens/feedback.dart';
 
 
 void main() {
@@ -22,10 +23,8 @@ class MyCropApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fasal Forecast',
-      debugShowCheckedModeBanner: false, 
-
+      debugShowCheckedModeBanner: false,
       initialRoute: '/front_page',
-
       routes: {
         '/front_page': (context) => const Page1(),
         '/translate_ui':(context) => const Page2(),
@@ -34,12 +33,11 @@ class MyCropApp extends StatelessWidget {
         '/about': (context) => const Page5(),
         '/upload_photo': (context) => const Page6(),
         '/camera':(context) => const Page7(),
-
-        '/result':(context)=> const Page8(),
+        '/result':(context)=> const Page10(),
          '/seed_reward':(context)=> const Page9(),
-
-        //'/water_reward':(context)=> const Page10(),
+        //'/water_reward':(context)=> const Page12(),
         '/error':(context)=> const Page11(),
+        '/feedback':(context)=> const Page12(),
       },
     );
   }

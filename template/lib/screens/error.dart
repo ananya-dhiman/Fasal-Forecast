@@ -67,9 +67,9 @@ class Page11 extends StatelessWidget {
                     onPressed: () {
                       // Define the action for Try Again button
                       Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const Page6()), //About
-                                );
+                        context,
+                        MaterialPageRoute(builder: (context) => const Page6()), //About
+                      );
 
                     },
                     style: ElevatedButton.styleFrom(
