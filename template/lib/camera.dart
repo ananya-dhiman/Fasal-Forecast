@@ -8,14 +8,14 @@ import 'package:template/screens/upload_photo.dart';
 import 'package:template/screens/error.dart';
 import 'package:template/screens/seed_reward.dart';
 
-class Page5 extends StatefulWidget {
-  const Page5({super.key});
+class Page7 extends StatefulWidget {
+  const Page7({super.key});
 
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<Page5> {
+class _CameraScreenState extends State<Page7> {
   CameraController? _controller;
   Future<void>? _initializeControllerFuture;
   late List<CameraDescription> _cameras;
@@ -107,7 +107,7 @@ class ImagePreviewScreen extends StatelessWidget {
         print('Image uploaded successfully');
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Page9()),//Goes to reward page
+          MaterialPageRoute(builder: (context) => const Page8()),//Result
         );
       } else {
         print('Failed to upload image');

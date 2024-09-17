@@ -7,6 +7,7 @@ import 'package:template/camera.dart';
 import 'translate_function.dart'; // Import the translation function
 import 'package:template/screens/result.dart';
 import './about.dart';
+import './seed_reward.dart';
 
 class Page6 extends StatelessWidget {
   const Page6({super.key});
@@ -224,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Page9(), // seed_reward
+                            builder: (context) => const Page8(), //Result
                           ),
                         );
                       else

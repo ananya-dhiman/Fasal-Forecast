@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-class Page10 extends StatelessWidget {
-  const Page10({super.key});
+class Page8 extends StatelessWidget {
+  const Page8({super.key});
 
   @override
   Widget build(BuildContext context) {
