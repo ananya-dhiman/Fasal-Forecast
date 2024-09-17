@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:template/camera.dart';
 import 'translate_function.dart'; // Import the translation function
 import 'package:template/screens/result.dart';
+import './about.dart';
 
 class Page4 extends StatelessWidget {
   const Page4({super.key});
@@ -137,18 +138,31 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async{
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Page3()), // Directly navigate to the Page3 (About page)
+    );
+     return false;// Allow the back button to work as expected
+    },
+      child:Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[900],
+        backgroundColor: const Color(0xFF024206),
         elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(10.0),
+     
+          title:const Center(
+          child: Padding(
+      padding: EdgeInsets.all(0),
+          
           child: Icon(
             Icons.grass,
             color: Colors.orangeAccent,
           ),
         ),
+        ),
       ),
+      
       body: Container(
         color: Colors.green[50],
         child: Column(
@@ -267,6 +281,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    ),
     );
   }
 }

@@ -72,7 +72,13 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return WillPopScope(
+      onWillPop: () async {
+        
+        Navigator.pop(context); // This pops the current page and returns to the previous page
+        return true; // Return true to indicate the pop was handled
+      },
+      child:Scaffold(
       backgroundColor: const Color(0xFFDFF7CB),
       body: CustomScrollView(
         slivers: [
@@ -132,6 +138,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
             ),
           ),
         ],
+      ),
       ),
     );
   }
