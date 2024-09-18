@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:async'; // Import for Future.delayed
-import 'package:template/screens/upload_photo.dart';
+import 'upload_photo.dart';
+import 'front_page.dart';
+import 'feedback.dart';
+import 'about.dart';
 
 class Page10 extends StatelessWidget {
   const Page10({super.key});
@@ -149,6 +152,7 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: const Color(0xFFD9F1C9), // Background color
       body: Center(
         child: Container(
@@ -179,7 +183,7 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Making prediction...🤔🤔',
+                  'Predicting...🤔🤔',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -228,7 +232,18 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       resizeToAvoidBottomInset : false,
+      drawer: _buildEndDrawer(context),
+      
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
+            onPressed: () {
+              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+            },
+          ),
+    ),
         toolbarHeight: 200,
         backgroundColor: const Color(0xFF024206),
         automaticallyImplyLeading: false,
@@ -242,15 +257,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                 color: Colors.orange,
               ),
             ),
-            Positioned(
-              right: 10,
-              bottom: 10,
-              child: Icon(
-                Icons.perm_identity_sharp,
-                size: 60,
-                color: Colors.orange,
-              ),
-            ),
+           
           ],
         ),
       ),
@@ -363,14 +370,14 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
               ),
               const SizedBox(height: 40),
               Container(
-                height: 100, // Set desired height
-                width: 240, // Set desired width
+                height: 75, // Set desired height
+                width: 150, // Set desired width
                 padding: const EdgeInsets.all(10), // Set padding
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF024206), // Button color
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: () {
@@ -382,9 +389,9 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     );
                   },
                   child: const Text(
-                    'Upload a new picture',
+                    'Upload',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.white
                     ),
                   ),
@@ -396,4 +403,122 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
       ),
     );
   }
+}
+
+
+
+ Drawer _buildEndDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          // Drawer header
+          const UserAccountsDrawerHeader(
+            accountName:  Text("Sarthak"),
+            accountEmail:  Text("sarthakk20@gmail.com"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor:  Color(0xFFFFB81C),
+              child: Text(
+                "S",
+                style: TextStyle(fontSize: 40.0),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFF024206), // Background color
+            ),
+          ),
+          // Drawer items
+          ListTile(
+            leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
+            title: const Text('Result History'),
+          
+            onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page5(),//About
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
+            title: const Text('Rewards'),
+           onTap: () {
+              //  Navigator.push(
+              //   context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const Page13(),//Reward List
+              //         ),
+              //       );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
+            title: const Text('Upload'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page6(),//Upload
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
+            title: const Text('Help'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page5(),//About
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
+            title: const Text('Feedback'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page12(),//Feedback
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
+            title: const Text('Logout'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page1(),//Logout
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+
+void main(){
+  runApp(const Page6());
 }

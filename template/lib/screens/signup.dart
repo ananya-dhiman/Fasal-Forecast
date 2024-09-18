@@ -80,6 +80,17 @@ class Page3 extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  const TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                labelText: "Confirm Password",
+                                hintText: "Confirm password",
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+               const SizedBox(height: 20),
 
                   // Sign In button
                   ElevatedButton(
