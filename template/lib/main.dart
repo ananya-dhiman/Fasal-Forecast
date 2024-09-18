@@ -6,10 +6,10 @@ import 'camera.dart';
 import 'screens/translate-ui.dart';
 import 'screens/result.dart';
 import 'screens/signup.dart';
-import 'screens/seed_reward.dart';
 import 'screens/error.dart';
 import 'screens/login.dart';
 import 'screens/feedback.dart';
+
 
 
 void main() {
@@ -35,10 +35,11 @@ class MyCropApp extends StatelessWidget {
         '/upload_photo': (context) => const Page6(),
         '/camera':(context) => const Page7(),
         '/result':(context)=> const Page10(),
-         '/seed_reward':(context)=> const Page9(),
+        // '/seed_reward':(context)=> const Page9(),
         //'/water_reward':(context)=> const Page12(),
         '/error':(context)=> const Page11(),
         '/feedback':(context)=> const Page12(),
+        //'/reward_info':(context)=> const Page13(),
       },
     );
   }

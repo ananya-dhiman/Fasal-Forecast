@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:template/screens/result.dart';
 import 'package:template/screens/upload_photo.dart';
 import 'package:template/screens/error.dart';
-import 'package:template/screens/seed_reward.dart';
+
 
 class Page7 extends StatefulWidget {
   const Page7({super.key});
