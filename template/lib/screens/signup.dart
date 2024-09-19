@@ -19,17 +19,21 @@ class Page3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Removes the back button
         backgroundColor: const Color(0xFF024206),
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.all(0),
-            child: Icon(
+        toolbarHeight: 200.0, // Set the height of the AppBar
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
               Icons.grass,
-              color: Colors.orangeAccent,
+              color: Colors.orange,
+              size: 70.0, // You can adjust the size of the icon as needed
             ),
-          ),
+          ],
         ),
       ),
+
       body: Container(
         color: const Color(0xFFDFF7CB), // Light green background
         padding: const EdgeInsets.all(20),
@@ -81,16 +85,16 @@ class Page3 extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                labelText: "Confirm Password",
-                                hintText: "Confirm password",
-                                border: OutlineInputBorder(),
-                                filled: true,
-                                fillColor: Colors.white,
-                              ),
-                            ),
-               const SizedBox(height: 20),
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Confirm Password",
+                      hintText: "Confirm password",
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
 
                   // Sign In button
                   ElevatedButton(
@@ -118,16 +122,6 @@ class Page3 extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
-
-            // Forgot password link
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Forgot password?",
-                style: TextStyle(color: Color(0xFF024206)),
-              ),
-            ),
             const SizedBox(height: 20),
 
             // Login button for users with an account
@@ -138,6 +132,7 @@ class Page3 extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
             ),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
                 Navigator.push(
