@@ -121,7 +121,7 @@ class Page3 extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
 
             // Login button for users with an account
             const Text(
@@ -131,7 +131,6 @@ class Page3 extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
             ),
-            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
                 Navigator.push(
