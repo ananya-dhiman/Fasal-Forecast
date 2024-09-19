@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import './upload_photo.dart';
+import './about.dart';
+import './front_page.dart';
+import './reward_info.dart';
+import './feedback.dart';
 
 class Page11 extends StatelessWidget {
   const Page11({super.key});
@@ -9,40 +13,45 @@ class Page11 extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: const Color(0xFFFFB81C), // Background color
+        backgroundColor: const Color(0xFFFFB81C), 
+         resizeToAvoidBottomInset : false,
+      drawer: _buildEndDrawer(context),
+      
+      appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
+            onPressed: () {
+              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+            },
+          ),
+    ),
+        
+        toolbarHeight: 200,
+        backgroundColor: const Color(0xFF024206),
+        automaticallyImplyLeading: false,
+        flexibleSpace: const Stack(
+          fit: StackFit.expand,
+          children: [
+            // Centered grass icon
+            Center(
+              child: Icon(
+                Icons.dangerous,
+                size: 80,
+                color: Colors.orange,
+              ),
+            ),
+            // Positioned bottom-right icon
+            
+          ],
+        ),
+      ),// Background color
         body: SingleChildScrollView( // Wrap content in a scroll view
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF024206),
-                ),
-                child: const Stack(
-                  children: [
-                    // Centered grass icon
-                    Center(
-                      child: Icon(
-                        Icons.grass,
-                        size: 80,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    Positioned(
-                      right: 10,
-                      bottom: 10,
-                      child: Icon(
-                        Icons.perm_identity_sharp,
-                        size: 50,
-                        color: Colors.orange,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              
 
               // Central part of the page with image and error message
               Padding(
@@ -98,3 +107,115 @@ class Page11 extends StatelessWidget {
     );
   }
 }
+
+ Drawer _buildEndDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          // Drawer header
+          const UserAccountsDrawerHeader(
+            accountName:  Text("Sarthak"),
+            accountEmail:  Text("sarthakk20@gmail.com"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor:  Color(0xFFFFB81C),
+              child: Text(
+                "S",
+                style: TextStyle(fontSize: 40.0),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFF024206), // Background color
+            ),
+          ),
+          // Drawer items
+          ListTile(
+            leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
+            title: const Text('Result History'),
+          
+            onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page5(),//Aboutt
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
+            title: const Text('Rewards'),
+           onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) =>  Page13(),//Reward List
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
+            title: const Text('Upload'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page6(),//Upload
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
+            title: const Text('Help'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page5(),//About
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
+            title: const Text('Feedback'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page12(),//Feedback
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
+            title: const Text('Logout'),
+             onTap: () {
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page1(),//Logout
+                      ),
+                    );
+
+              // Navigate or handle tap here
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
