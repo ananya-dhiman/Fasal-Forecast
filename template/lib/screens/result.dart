@@ -234,30 +234,37 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
     return Scaffold(
        resizeToAvoidBottomInset : false,
       drawer: _buildEndDrawer(context),
-      
+
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
-            },
+        leading: Align(
+          alignment: Alignment.topLeft, // Aligns the icon to the top-left
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(
+                Icons.perm_identity_sharp,
+                size: 40,
+                color: Color(0xFFFFB81C),
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+              },
+            ),
           ),
-    ),
+        ),
         toolbarHeight: 200,
         backgroundColor: const Color(0xFF024206),
         automaticallyImplyLeading: false,
         flexibleSpace: const Stack(
           fit: StackFit.expand,
           children: [
+            // Centered grass icon
             Center(
               child: Icon(
                 Icons.grass,
-                size: 90,
+                size: 70,
                 color: Colors.orange,
               ),
             ),
-           
           ],
         ),
       ),
@@ -370,8 +377,8 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
               ),
               const SizedBox(height: 40),
               Container(
-                height: 75, // Set desired height
-                width: 150, // Set desired width
+                height: 80, // Set desired height
+                width: 210, // Set desired width
                 padding: const EdgeInsets.all(10), // Set padding
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -389,7 +396,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     );
                   },
                   child: const Text(
-                    'Upload',
+                    'Upload New Image',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white

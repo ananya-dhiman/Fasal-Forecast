@@ -144,12 +144,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
      drawer: _buildEndDrawer(context), // Drawer appears here in the same Scaffold
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
-            },
+        leading: Align(
+          alignment: Alignment.topLeft, // Aligns the icon to the top-left
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(
+                Icons.perm_identity_sharp,
+                size: 40,
+                color: Color(0xFFFFB81C),
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+              },
+            ),
           ),
         ),
         toolbarHeight: 200,
@@ -166,12 +173,9 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.orange,
               ),
             ),
-            // Positioned bottom-right icon
-            
           ],
         ),
       ),
-      
       body: Container(
         color: Colors.green[50],
         child: Column(
@@ -350,7 +354,7 @@ class _HomePageState extends State<HomePage> {
           ListTile(
             leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
             title: const Text('Result History'),
-          
+
             onTap: () {
                Navigator.push(
                 context,

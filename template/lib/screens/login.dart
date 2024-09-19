@@ -20,15 +20,18 @@ class Page4 extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Removes the back button
         backgroundColor: const Color(0xFF024206),
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.all(0),
-            child: Icon(
+        toolbarHeight: 200.0, // Set the height of the AppBar
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
               Icons.grass,
-              color: Colors.orangeAccent,
+              color: Colors.orange,
+              size: 70.0, // You can adjust the size of the icon as needed
             ),
-          ),
+          ],
         ),
       ),
       body: LayoutBuilder(
@@ -45,6 +48,8 @@ class Page4 extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Spacer(), // Add space at the top to help center the login box
+
                       const Text(
                         "LOGIN",
                         style: TextStyle(
@@ -57,7 +62,7 @@ class Page4 extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: Colors.orangeAccent,
+                          color: const Color(0xFFFFB81C),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -83,7 +88,6 @@ class Page4 extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
@@ -108,18 +112,27 @@ class Page4 extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20), // Add space between the yellow box and text/button
-                        const Spacer(),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "Forgot password?",
+                          style: TextStyle(
+                              color: Color(0xFF024206),
+                              fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       // "Have an account?" text
                       const Text(
-                        "HAVE AN ACCOUNT?",
+                        "DON'T HAVE AN ACCOUNT?",
                         style: TextStyle(
                           color: Color(0xFF024206),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
-                  
                       TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -135,7 +148,8 @@ class Page4 extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      const Spacer(), // Optional spacer to push content upwards if needed
+
+                      const Spacer(), // Add space at the bottom to keep the content centered
                     ],
                   ),
                 ),

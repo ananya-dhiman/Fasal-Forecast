@@ -76,7 +76,6 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       drawer: _buildEndDrawer(context), // Drawer appears here in the same Scaffold
       backgroundColor: const Color(0xFFDFF7CB),
       body: CustomScrollView(
@@ -101,7 +100,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                 children: [
                   const Icon(
                     Icons.grass,
-                    size: 90,
+                    size: 80,
                     color: Colors.orange,
                   ),
                   SizedBox(
@@ -115,15 +114,13 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                         ),
                       ),
                       onPressed: () {
-                       
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const Page6(), // Make sure Page6 is defined and imported
                             ),
                             );
-                          
-
                       },
                       child: Text(
                         startNowText,
@@ -271,10 +268,10 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
     );
   }
 }
- 
- 
- 
- 
+
+
+
+
  Drawer _buildEndDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -299,7 +296,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
           ListTile(
             leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
             title: const Text('Result History'),
-          
+
             onTap: () {
                Navigator.push(
                 context,
