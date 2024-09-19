@@ -30,7 +30,6 @@ class MyCropApp extends StatelessWidget {
         '/translate_ui':(context) => const Page2(),
         '/signup': (context) => const Page3(),
         '/login': (context) => const Page4(),
-        
         '/about': (context) => const Page5(),
         '/upload_photo': (context) => const Page6(),
         '/camera':(context) => const Page7(),
