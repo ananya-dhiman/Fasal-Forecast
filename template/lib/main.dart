@@ -9,7 +9,7 @@ import 'screens/signup.dart';
 import 'screens/error.dart';
 import 'screens/login.dart';
 import 'screens/feedback.dart';
-
+import 'screens/reward_info.dart';
 
 
 void main() {
@@ -39,7 +39,7 @@ class MyCropApp extends StatelessWidget {
         //'/water_reward':(context)=> const Page12(),
         '/error':(context)=> const Page11(),
         '/feedback':(context)=> const Page12(),
-        //'/reward_info':(context)=> const Page13(),
+        '/reward_info':(context)=>  Page13(),
       },
     );
   }

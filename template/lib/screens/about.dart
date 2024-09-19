@@ -3,6 +3,7 @@ import 'translate_function.dart';
 import 'upload_photo.dart';
 import 'front_page.dart';
 import 'feedback.dart';
+import 'reward_info.dart';
 
 class Page5 extends StatelessWidget {
   const Page5({super.key});
@@ -300,7 +301,7 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
                Navigator.push(
                 context,
                       MaterialPageRoute(
-                        builder: (context) => const Page5(),//About
+                        builder: (context) => const Page5(),//Aboutt
                       ),
                     );
 
@@ -311,12 +312,12 @@ class _StickyHeaderExampleState extends State<StickyHeaderExample> {
             leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
             title: const Text('Rewards'),
            onTap: () {
-              //  Navigator.push(
-              //   context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const Page13(),//Reward List
-              //         ),
-              //       );
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) =>  Page13(),//Reward List
+                      ),
+                    );
 
               // Navigate or handle tap here
             },

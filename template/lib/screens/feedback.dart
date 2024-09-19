@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './about.dart';
 import './upload_photo.dart';
 import './front_page.dart';
+import './reward_info.dart';
 void main() {
   runApp(const Page12());
 }
@@ -74,12 +75,12 @@ class FeedbackPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 10),
-          Text(
+          const Text(
             'FEEDBACK',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.green[900],
+              color: Color(0xFF024206),
             ),
           ),
           const SizedBox(height: 30),
@@ -214,12 +215,12 @@ class FeedbackPage extends StatelessWidget {
             leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
             title: const Text('Rewards'),
            onTap: () {
-              //  Navigator.push(
-              //   context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const Page13(),//Reward List
-              //         ),
-              //       );
+               Navigator.push(
+                context,
+                      MaterialPageRoute(
+                        builder: (context) =>  Page13(),//Reward List
+                      ),
+                    );
 
               // Navigate or handle tap here
             },
