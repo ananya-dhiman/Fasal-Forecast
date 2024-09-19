@@ -32,33 +32,37 @@ class _GrowthPageState extends State<Page13> {
       backgroundColor:const Color(0xFFDFF7CB) ,
     resizeToAvoidBottomInset : false,
       drawer: _buildEndDrawer(context),
-      
+
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
-            },
+        leading: Align(
+          alignment: Alignment.topLeft, // Aligns the icon to the top-left
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(
+                Icons.perm_identity_sharp,
+                size: 40,
+                color: Color(0xFFFFB81C),
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+              },
+            ),
           ),
-    ),
-        
-        toolbarHeight: 150,
+        ),
+        toolbarHeight: 200,
         backgroundColor: const Color(0xFF024206),
         automaticallyImplyLeading: false,
         flexibleSpace: const Stack(
-       
+          fit: StackFit.expand,
           children: [
             // Centered grass icon
             Center(
               child: Icon(
                 Icons.military_tech,
-                size: 50,
-                color: Color(0xFFFFB81C),
+                size: 70,
+                color: Colors.orange,
               ),
             ),
-            // Positioned bottom-right icon
-            
           ],
         ),
       ),
@@ -99,26 +103,34 @@ class _GrowthPageState extends State<Page13> {
                   
                   // Rotated Slider positioned in the middle of the screen
                   SizedBox(
-                    height:400,
+                    height: 600, // Height for the slider
                     child: Transform.rotate(
                       angle: -3.14159 / 2, // Rotate the slider by 90 degrees
-                      child: Slider(
-                        value: _uploadedPictures,
-                        min: 1,
-                        max: 10,
-                        divisions: 9,
-                        activeColor: Color(0xFFFFB81C),
-                        inactiveColor: Colors.grey[300],
-                        onChanged: (value) {
-                          setState(() {
-                            _uploadedPictures = value;
-                          });
-                        },
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          trackHeight: 5.0, // Increase the track height
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5.0),
+                        ),
+                        child: Transform.scale(
+                          scale: 2.7,
+                          child: Slider(
+                            value: _uploadedPictures,
+                            min: 1,
+                            max: 10,
+                            divisions: 2,
+                            activeColor: Color(0xFFFFB81C),
+                            inactiveColor: Colors.grey[300],
+                            onChanged: (value) {
+                              setState(() {
+                                _uploadedPictures = value;
+                              });
+                            },
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  
-                  // Space after slider
+
                   const Spacer(),
                 ],
               ),
@@ -147,6 +159,7 @@ class _GrowthPageState extends State<Page13> {
                 color: Color(0xFFFFB81C),
               ),
             ),
+            const SizedBox(height: 20),
             const Text(
               'KEEP UPLOADING PICTURES AND GROW A PLANT',
               textAlign: TextAlign.center,
@@ -158,13 +171,10 @@ class _GrowthPageState extends State<Page13> {
                  Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Page10()), //Navigate to Page5
-                                );
+                 );
                 // Results button pressed
               },
-       
               style: ElevatedButton.styleFrom(
-               
-   
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 backgroundColor:const Color(0xFF024206),
               ),
