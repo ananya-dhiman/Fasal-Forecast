@@ -28,36 +28,40 @@ class FeedbackPage extends StatelessWidget {
    return Scaffold(
     resizeToAvoidBottomInset : false,
       drawer: _buildEndDrawer(context),
-      
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.perm_identity_sharp,size: 40,color: Color(0xFFFFB81C)),
-            onPressed: () {
-              Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
-            },
-          ),
-    ),
-        
-        toolbarHeight: 200,
-        backgroundColor: const Color(0xFF024206),
-        automaticallyImplyLeading: false,
-        flexibleSpace: const Stack(
-          fit: StackFit.expand,
-          children: [
-            // Centered grass icon
-            Center(
-              child: Icon(
-                Icons.grass,
-                size: 90,
-                color: Colors.orange,
-              ),
-            ),
-            // Positioned bottom-right icon
-            
-          ],
-        ),
-      ),
+
+     appBar: AppBar(
+       leading: Align(
+         alignment: Alignment.topLeft, // Aligns the icon to the top-left
+         child: Builder(
+           builder: (context) => IconButton(
+             icon: const Icon(
+               Icons.perm_identity_sharp,
+               size: 40,
+               color: Color(0xFFFFB81C),
+             ),
+             onPressed: () {
+               Scaffold.of(context).openDrawer(); // Open drawer when icon is pressed
+             },
+           ),
+         ),
+       ),
+       toolbarHeight: 200,
+       backgroundColor: const Color(0xFF024206),
+       automaticallyImplyLeading: false,
+       flexibleSpace: const Stack(
+         fit: StackFit.expand,
+         children: [
+           // Centered grass icon
+           Center(
+             child: Icon(
+               Icons.grass,
+               size: 70,
+               color: Colors.orange,
+             ),
+           ),
+         ],
+       ),
+     ),
       body: SingleChildScrollView(
       child: Column(
   mainAxisAlignment: MainAxisAlignment.start,
