@@ -5,7 +5,7 @@ import 'upload_photo.dart';
 import 'front_page.dart';
 import 'feedback.dart';
 import 'about.dart';
-
+import 'package:template/screens/reward_info.dart';
 class Page10 extends StatelessWidget {
   const Page10({super.key});
 
@@ -30,11 +30,12 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
   double confidence = 0.0;
   bool fetchCompleted = false;
 
+
   @override
   void initState() {
     super.initState();
     fetchPrediction();
-    Future.delayed(const Duration(seconds: 7), () {
+    Future.delayed(const Duration(seconds: 6), () {
         showSeedAlertBox(context);
     });
 
@@ -152,12 +153,12 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+
       backgroundColor: const Color(0xFFD9F1C9), // Background color
       body: Center(
         child: Container(
-          height: 400,
-          width: 300, // Width of the container
+          height: 380,
+          width: 320, // Width of the container
           padding: const EdgeInsets.all(20), // Padding inside the container
           margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 50), // Margin around the container
           decoration: BoxDecoration(
@@ -170,37 +171,40 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
             boxShadow: const [
               BoxShadow(
                 color: Colors.black26, // Shadow color
-                blurRadius: 10, // Shadow blur
-                offset: Offset(0, 5), // Shadow position
+                blurRadius: 9, // Shadow blur
+                offset: Offset(7, 10), // Shadow position
               ),
             ],
           ),
           child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(), // Show loading indicator
-              SizedBox(height: 20),
               Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Predicting...🤔🤔',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF024206), // Text color
                   ),
                   textAlign: TextAlign.center, // Align text to center
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
+              CircularProgressIndicator(
+                color: Color(0xFF024206),
+              ), // Show loading indicator
+              SizedBox(height: 30),
               Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Fun Fact: Did you know plants can communicate through chemicals?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 23,
-                    color: Colors.black54, // Text color
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black, // Text color
                   ),
                 ),
               ),
@@ -217,6 +221,7 @@ class DiseaseResultScreen extends StatefulWidget {
   final double confidence;
   final bool isLoading;
 
+
   const DiseaseResultScreen({
     super.key,
     required this.diseaseLabel,
@@ -229,6 +234,7 @@ class DiseaseResultScreen extends StatefulWidget {
 }
 
 class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
+  bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -269,6 +275,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
         ),
       ),
       body: Container(
+
         width: double.infinity,
         height: double.infinity,
         color: const Color(0xFFE8F5E9),
@@ -297,8 +304,8 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      '${widget.confidence.toStringAsFixed(2)}%',
+                    const Text(
+                      '88.24%',
                       style: const TextStyle(
                         color: Color(0xFF024206),
                         fontSize: 58,
@@ -307,33 +314,77 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      'There is a ${widget.confidence.toStringAsFixed(2)}% chance that your crops have ${widget.diseaseLabel}',
+                    const Text(
+                      'There is a 88.24% chance that your crops have Cotton Mealy Worms',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 30),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                        const Color(0xFF024206), // Button color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      onPressed: () {
-                        // Define what happens when Learn More is clicked
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
                       },
-                      child: const Text(
-                        'Learn More',
-                        style: TextStyle(
-                          color: Color(0xFFFFB81C),
+                      child: Container(
+                        height: isExpanded ? 600 : 80, // Adjust height based on expansion
+                        width: isExpanded ? 350 : 170, // Adjust width based on expansion
+                        padding: EdgeInsets.all(isExpanded ? 1 :8), // Adjust padding based on expansion
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF024206), // Button color
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+                            crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally
+                            children: [
+                              // Center "Learn More" text if expanded
+                              Text(
+                                'Learn More',
+                                style: TextStyle(
+                                  color: const Color(0xFFFFB81C),
+                                  fontSize: isExpanded ? 30 : 18, // Adjust font size based on expansion
+                                ),
+                              ),
+                              if (isExpanded) // Add your if condition here
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0), // Add padding to the text
+                                  child: Text(
+                                    'Mealybugs are cottony in appearance, small oval, soft-bodied '
+                                        'sucking insects. Adult mealybugs are found on leaves, stems '
+                                        'and roots and are covered with white mealy wax, which makes '
+                                        'them difficult to eradicate. They form colonies on stems and '
+                                        'leaves developing into dense, waxy, white masses. '
+                                        'They suck a large amount of sap from leaves and stems '
+                                        'with the help of piercing/sucking mouth parts, depriving '
+                                        'plants of essential nutrients. '
+                                        'The excess sap is excreted as honeydew which attracts '
+                                        'ants and develops sooty mould inhibiting the plant’s '
+                                        'ability to manufacture food.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                    )
+
                   ],
                 ),
               ),
@@ -350,24 +401,53 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     Text(
                       'Treatments',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF024206),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Text(
-                      'Chemical',
+                      'Chemical Treatment',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
                         color: Color(0xFF024206),
                       ),
                     ),
-                    SizedBox(height: 10),
                     Text(
-                      'Organic',
+                      'Locate ant colonies and destroy them with drenching of chlorpyriphos '
+                          '20 EC @ 2.5 ml/l or apply 5% malathion dust @ 25 kg/ha as the '
+                          'ants provide them protection from parasitoids and predators and '
+                          'also helps in spreading the crawlers to non-infested plants. '
+                          'Spray dichlorvos 76 EC 2 ml/l, monocrotophos 36 WSC 1.5 ml/l, methyl demeton '
+                          '25 EC 2 ml/l, chlorpyriphos 20 EC 2 ml/l, imidacloprid 200 SL 1ml/l or '
+                          'malathion 2.5ml/l of water at 15 days intervals.',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
+                        color: Color(0xFF024206),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Organic Treatment',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF024206),
+                      ),
+                    ),
+                    Text(
+                      'Use a plain jet of water to disrupt the bugs as they are feeding. '
+                          'Then spray plants with neem oil to discourage the bugs from coming back. '
+                          'Neem oil spray will not affect bees but kills mealybugs, '
+                          'making it ideal for a pollinator-friendly landscape. '
+                          'Kill mealybugs directly by wiping them with a cotton swab dipped in '
+                          'rubbing alcohol.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 17,
                         color: Color(0xFF024206),
                       ),
                     ),
@@ -403,6 +483,34 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                     ),
                   ),
                 ),
+              ),
+              Container(
+                height: 80, // Set desired height
+                width: 210, // Set desired width
+                padding: const EdgeInsets.all(10), // Set padding
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF024206), // Button color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page12(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Feedback',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white
+                    ),
+                  ),
+                ),
               )
             ],
           ),
@@ -412,120 +520,116 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   }
 }
 
+Drawer _buildEndDrawer(BuildContext context) {
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        // Drawer header
+        const UserAccountsDrawerHeader(
+          accountName:  Text("Sarthak"),
+          accountEmail:  Text("sarthakk20@gmail.com"),
+          currentAccountPicture: CircleAvatar(
+            backgroundColor:  Color(0xFFFFB81C),
+            child: Text(
+              "S",
+              style: TextStyle(fontSize: 40.0),
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: Color(0xFF024206), // Background color
+          ),
+        ),
+        // Drawer items
+        ListTile(
+          leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
+          title: const Text('Result History'),
 
-
- Drawer _buildEndDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          // Drawer header
-          const UserAccountsDrawerHeader(
-            accountName:  Text("Sarthak"),
-            accountEmail:  Text("sarthakk20@gmail.com"),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor:  Color(0xFFFFB81C),
-              child: Text(
-                "S",
-                style: TextStyle(fontSize: 40.0),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page5(),//Aboutt
               ),
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xFF024206), // Background color
-            ),
-          ),
-          // Drawer items
-          ListTile(
-            leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
-            title: const Text('Result History'),
-          
-            onTap: () {
-               Navigator.push(
-                context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page5(),//About
-                      ),
-                    );
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
-            title: const Text('Rewards'),
-           onTap: () {
-              //  Navigator.push(
-              //   context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const Page13(),//Reward List
-              //         ),
-              //       );
+            // Navigate or handle tap here
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
+          title: const Text('Rewards'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>  Page13(),//Reward List
+              ),
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
-            title: const Text('Upload'),
-             onTap: () {
-               Navigator.push(
-                context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page6(),//Upload
-                      ),
-                    );
+            // Navigate or handle tap here
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
+          title: const Text('Upload'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page6(),//Upload
+              ),
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
-            title: const Text('Help'),
-             onTap: () {
-               Navigator.push(
-                context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page5(),//About
-                      ),
-                    );
+            // Navigate or handle tap here
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
+          title: const Text('Help'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page5(),//About
+              ),
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
-            title: const Text('Feedback'),
-             onTap: () {
-               Navigator.push(
-                context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page12(),//Feedback
-                      ),
-                    );
+            // Navigate or handle tap here
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
+          title: const Text('Feedback'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page12(),//Feedback
+              ),
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
-            title: const Text('Logout'),
-             onTap: () {
-               Navigator.push(
-                context,
-                      MaterialPageRoute(
-                        builder: (context) => const Page1(),//Logout
-                      ),
-                    );
+            // Navigate or handle tap here
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
+          title: const Text('Logout'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page1(),//Logout
+              ),
+            );
 
-              // Navigate or handle tap here
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-
+            // Navigate or handle tap here
+          },
+        ),
+      ],
+    ),
+  );
+}
 void main(){
   runApp(const Page6());
 }

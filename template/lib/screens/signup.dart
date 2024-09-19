@@ -50,7 +50,6 @@ class Page3 extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-
             // Form container with email and password
             Container(
               padding: const EdgeInsets.all(20),
@@ -102,7 +101,7 @@ class Page3 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Page5()), //About
+                            builder: (context) => const Page4()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -148,6 +147,22 @@ class Page3 extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Page5()),
+                );
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF024206),
+              ),
+              child: const Text(
+                "Skip",
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/screens/signup.dart'; 
+import 'package:template/screens/login.dart';
 import 'global.dart';
 
 
@@ -106,7 +106,7 @@ class _TranslateScreenState extends State<Page2> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Page3(),//Login
+                        builder: (context) => const Page4(),//Login
                       ),
                     );
                   },
