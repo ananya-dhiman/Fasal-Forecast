@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     drawer: _buildEndDrawer(context), // Drawer appears here in the same Scaffold
+      drawer: _buildEndDrawer(context), // Drawer appears here in the same Scaffold
       appBar: AppBar(
         leading: Align(
           alignment: Alignment.topLeft, // Aligns the icon to the top-left
@@ -177,271 +177,264 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Container(
-        color: Colors.green[50],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              tempMax != null ? 'Max Temp: $tempMax°C   Min Temp: $tempMin°C' : 'Loading temp...',
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
-            ),
-            Text(
-              humidity != null ? 'Humidity: $humidity%      Wind Speed: $windSpeed m/s' : 'Loading humidity and wind speed...',
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
-            ),
-            Text(
-              city != null && region != null ? 'Location: $city, $region' : 'Loading location details....',
-              style: TextStyle(fontSize: 23, color: Colors.green[900], fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), // Padding inside the container
+      body: SingleChildScrollView(  // Add scroll view
+        child: Container(
+          color: Colors.green[50],
+          padding: const EdgeInsets.all(16.0),  // Add padding
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 16),
+              Text(
+                tempMax != null ? 'Max Temp: $tempMax°C   Min Temp: $tempMin°C' : 'Loading temp...',
+                style: TextStyle(fontSize: 20, color: Colors.green[900]),
+              ),
+              Text(
+                humidity != null ? 'Humidity: $humidity%      Wind Speed: $windSpeed m/s' : 'Loading humidity and wind speed...',
+                style: TextStyle(fontSize: 20, color: Colors.green[900]),
+              ),
+              Text(
+                city != null && region != null ? 'Location: $city, $region' : 'Loading location details....',
+                style: TextStyle(fontSize: 23, color: Colors.green[900], fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: selectedCrop,
+                      items: const [
+                        DropdownMenuItem(value: 'co', child: Text('Cotton', textAlign: TextAlign.center)),
+                        DropdownMenuItem(value: 'wh', child: Text('Wheat', textAlign: TextAlign.center)),
+                        DropdownMenuItem(value: 'su', child: Text('Sugarcane', textAlign: TextAlign.center)),
+                        DropdownMenuItem(value: 'ma', child: Text('Maize', textAlign: TextAlign.center)),
+                      ],
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedCrop = newValue ?? 'co';
+                        });
+                      },
+                      isExpanded: true,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      dropdownColor: Colors.white,
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Color(0xFF024206),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Container(
                 width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.06,
-                decoration: BoxDecoration(
-                  color: Colors.white, // Background color of the dropdown
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: selectedCrop,
-                    items: const [
-                      DropdownMenuItem(value: 'co', child: Text('Cotton', textAlign: TextAlign.center)),
-                      DropdownMenuItem(value: 'wh', child: Text('Wheat', textAlign: TextAlign.center)),
-                      DropdownMenuItem(value: 'su', child: Text('Sugarcane', textAlign: TextAlign.center)),
-                      DropdownMenuItem(value: 'ma', child: Text('Maize', textAlign: TextAlign.center)),
-                    ],
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedCrop = newValue ?? 'co';
-                      });
-                    },
-                    isExpanded: true,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    dropdownColor: Colors.white,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Color(0xFF024206), // Arrow color
-                    ),
-                  ),
+                height: MediaQuery.of(context).size.height * 0.3,
+                color: Colors.white,
+                child: Center(
+                  child: _image == null
+                      ? Text(
+                    previewText,
+                    style: const TextStyle(fontSize: 18),
+                  )
+                      : Image.file(_image!),
                 ),
               ),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.3,
-              color: Colors.white,
-              child: Center(
-                child: _image == null
-                    ? Text(
-                  previewText,
-                  style: const TextStyle(fontSize: 18),
-                )
-                    : Image.file(_image!),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: _pickImage, // Pick an image from gallery
+                icon: const Icon(
+                  Icons.photo_library,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  uploadText,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF024206),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-              child: Column(
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: _pickImage, // Pick an image from gallery
-                    icon: const Icon(
-                      Icons.photo_library,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      uploadText,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF024206),
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      _uploadImage();
-                      if (_image != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Page10(), //Result
-                          ),
-                        );
-                      } else {
-                        showNoImageAlertDialog(context); // Show alert if no image is selected
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.upload,
-                      color: Colors.white,
-                    ),
-                    label: const Text(
-                      'Upload Image',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF024206),
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Page7(), //Result
-                        ),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      takePictureText,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF024206),
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 10),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _uploadImage();
+                  if (_image != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Page10(), // Result page
+                      ),
+                    );
+                  } else {
+                    showNoImageAlertDialog(context); // Show alert if no image is selected
+                  }
+                },
+                icon: const Icon(
+                  Icons.upload,
+                  color: Colors.white,
+                ),
+                label: const Text(
+                  'Upload',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF024206),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-          ],
+              const SizedBox(height: 10),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Page7(), // Camera page
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  takePictureText,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF024206),
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
   }
-}
 
+  // Drawer widget
 
-Drawer _buildEndDrawer(BuildContext context) {
-  return Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        // Drawer header
-        const UserAccountsDrawerHeader(
-          accountName:  Text("Sarthak"),
-          accountEmail:  Text("sarthakk20@gmail.com"),
-          currentAccountPicture: CircleAvatar(
-            backgroundColor:  Color(0xFFFFB81C),
-            child: Text(
-              "S",
-              style: TextStyle(fontSize: 40.0),
+  Drawer _buildEndDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          // Drawer header
+          const UserAccountsDrawerHeader(
+            accountName:  Text("Sarthak"),
+            accountEmail:  Text("sarthakk20@gmail.com"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor:  Color(0xFFFFB81C),
+              child: Text(
+                "S",
+                style: TextStyle(fontSize: 40.0),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFF024206), // Background color
             ),
           ),
-          decoration: BoxDecoration(
-            color: Color(0xFF024206), // Background color
+          // Drawer items
+          ListTile(
+            leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
+            title: const Text('Result History'),
+
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Page5(),//Aboutt
+                ),
+              );
+
+              // Navigate or handle tap here
+            },
           ),
-        ),
-        // Drawer items
-        ListTile(
-          leading: const Icon(Icons.history, color: Color(0xFFFFB81C),),
-          title: const Text('Result History'),
+          ListTile(
+            leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
+            title: const Text('Rewards'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>  Page13(),//Reward List
+                ),
+              );
 
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Page5(),//Aboutt
-              ),
-            );
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
+            title: const Text('Upload'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Page6(),//Upload
+                ),
+              );
 
-            // Navigate or handle tap here
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.emoji_events, color:Color(0xFFFFB81C),),
-          title: const Text('Rewards'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>  Page13(),//Reward List
-              ),
-            );
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
+            title: const Text('Help'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Page5(),//About
+                ),
+              );
 
-            // Navigate or handle tap here
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.upload_file, color:Color(0xFFFFB81C)),
-          title: const Text('Upload'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Page6(),//Upload
-              ),
-            );
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
+            title: const Text('Feedback'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Page12(),//Feedback
+                ),
+              );
 
-            // Navigate or handle tap here
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.help, color: Color(0xFFFFB81C)),
-          title: const Text('Help'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Page5(),//About
-              ),
-            );
+              // Navigate or handle tap here
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Page1(),//Logout
+                ),
+              );
 
-            // Navigate or handle tap here
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.feedback, color: Color(0xFFFFB81C)),
-          title: const Text('Feedback'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Page12(),//Feedback
-              ),
-            );
-
-            // Navigate or handle tap here
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.logout, color: Color(0xFFFFB81C)),
-          title: const Text('Logout'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Page1(),//Logout
-              ),
-            );
-
-            // Navigate or handle tap here
-          },
-        ),
-      ],
-    ),
-  );
-}
-
-void main(){
-  runApp(const Page6());
+              // Navigate or handle tap here
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
