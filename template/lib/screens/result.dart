@@ -79,7 +79,7 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
           ),
           child: Container(
             padding: const EdgeInsets.all(20),
-            height: 480,  // Set a fixed height
+            height: 520,  // Set a fixed height
             width: 350,   // Set a fixed width
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +94,7 @@ class _FetchingDataScreenState extends State<FetchingDataScreen> {
                   'CONGRATULATIONS!\nYOU WON A SEED',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF024206),
                   ),
